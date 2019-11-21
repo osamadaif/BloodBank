@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Blood Bank</string>
+    <string name="phone">phone</string>
+    <string name="password">password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">forget password?</string>
+    <string name="enter">Enter</string>
+    <string name="creat_new_account">Creat New Account</string>
+    <string name="blood_bank">بنك الدم</string>
+    <string name="donation">Donation</string>
+    <string name="posts">Posts</string>
+    <string name="Press_back_again">Press back again to exit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_new_account">Create New Account</string>
+    <string name="user_name">name</string>
+    <string name="email">email</string>
+    <string name="birthday_date">birthday date</string>
+    <string name="blood_type">blood type</string>
+    <string name="Last_donation_date">Last donation date</string>
+    <string name="governorate">governorate</string>
+    <string name="city">city</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="register">register</string>
+    <string name="test1">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 1</string>
+    <string name="test2">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 2</string>
+    <string name="test3"> دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 3</string>
+    <string name="send">send</string>
+    <string name="code">code</string>
+    <string name="new_password">new password</string>
+    <string name="confirm_new_password">confirm new password</string>
+    <string name="change">change</string>
+    <string name="home">home</string>
+    <string name="user">user</string>
+    <string name="notification">notification</string>
+    <string name="more">more</string>
+    <string name="add_to_favorite">add to favorite</string>
+    <string name="title">title</string>
+    <string name="background_blood_type">background blood type</string>
+    <string name="blood_type_test">B+</string>
+    <string name="name_donation_key">name:</string>
+    <string name="name_of_the_user_value">name of the user</string>
+    <string name="hospital_donation_key">hospital</string>
+    <string name="name_of_hospital_value">name of hospital</string>
+    <string name="name_of_city_value">name of city</string>
+</resources>

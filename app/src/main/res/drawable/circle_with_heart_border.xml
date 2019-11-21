@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/circle_white" />
+    <item
+        android:id="@+id/heart_fill_with_circle"
+        android:drawable="@drawable/ic_favorite_border_red"
+        android:gravity="center"
+        />
+
+
+</layer-list>

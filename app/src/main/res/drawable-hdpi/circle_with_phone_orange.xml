@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/circle_orange" />
+    <item
+        android:id="@+id/phone_fill_with_circle"
+        android:drawable="@drawable/ic_phone_white"
+        android:gravity="center"
+        />
+
+
+</layer-list>

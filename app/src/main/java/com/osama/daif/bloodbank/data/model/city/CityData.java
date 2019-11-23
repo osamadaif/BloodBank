@@ -25,6 +25,11 @@ public class CityData {
     @Expose
     private CityData governorate;
 
+    public CityData(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -11,13 +11,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.adapter.CustomSpinnerAdapter;
+import com.osama.daif.bloodbank.adapter.SpinnerAdapter2;
 import com.osama.daif.bloodbank.data.model.SpinnerItem;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 
@@ -30,6 +30,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
+import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
 public class RegisterAsUserFragment extends BaseFragment implements AdapterView.OnItemSelectedListener {
@@ -79,6 +81,8 @@ public class RegisterAsUserFragment extends BaseFragment implements AdapterView.
     private ArrayList<SpinnerItem> customList;
     private int width = 150;
 
+    private SpinnerAdapter2 bloodTypeAdapter, governoratesAdapter;
+
     public RegisterAsUserFragment() {
         // Required empty public constructor
     }
@@ -96,9 +100,33 @@ public class RegisterAsUserFragment extends BaseFragment implements AdapterView.
         // Inflate the layout for this fragment
         initFragment();
 
+
         bloodTypeSpinner = view.findViewById(R.id.register_and_edit_profile_fragment_til_sp_blood_type);
         governmentSpinner = view.findViewById(R.id.register_and_edit_profile_fragment_til_sp_government);
         citySpinner = view.findViewById(R.id.register_and_edit_profile_fragment_til_sp_city);
+
+        bloodTypeAdapter = new SpinnerAdapter2 (getActivity ());
+        getData(getClient ().getBloodTypes (), bloodTypeAdapter, "blood type", bloodTypeSpinner);
+
+        governoratesAdapter = new SpinnerAdapter2 (getActivity ());
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener ( ) {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+
+                }else {
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        getData(getClient ().getGovernorates (), governoratesAdapter, "Governorates", governmentSpinner, listener);
+
+
 
         if (bloodTypeSpinner != null) {
             customList = getCustomList("blood type",R.drawable.blood_drop);

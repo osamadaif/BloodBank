@@ -44,4 +44,6 @@
     <string name="hospital_donation_key">hospital</string>
     <string name="name_of_hospital_value">name of hospital</string>
     <string name="name_of_city_value">name of city</string>
+    <string name="Please_insert_number">Please insert phone number</string>
+    <string name="Please_insert_password">Please insert password</string>
 </resources>

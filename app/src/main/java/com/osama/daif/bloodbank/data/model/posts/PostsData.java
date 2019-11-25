@@ -3,7 +3,7 @@ package com.osama.daif.bloodbank.data.model.posts;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.osama.daif.bloodbank.data.model.city.CityData;
+import com.osama.daif.bloodbank.data.model.city.GeneralResponseData;
 
 public class PostsData {
 
@@ -39,7 +39,7 @@ public class PostsData {
     private Boolean isFavourite;
     @SerializedName("category")
     @Expose
-    private CityData category;
+    private GeneralResponseData category;
 
     public Integer getId() {
         return id;
@@ -121,11 +121,11 @@ public class PostsData {
         this.isFavourite = isFavourite;
     }
 
-    public CityData getCategory() {
+    public GeneralResponseData getCategory() {
         return category;
     }
 
-    public void setCategory(CityData category) {
+    public void setCategory(GeneralResponseData category) {
         this.category = category;
     }
 

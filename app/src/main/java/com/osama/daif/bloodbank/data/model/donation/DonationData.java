@@ -3,7 +3,7 @@ package com.osama.daif.bloodbank.data.model.donation;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.osama.daif.bloodbank.data.model.city.CityData;
+import com.osama.daif.bloodbank.data.model.city.GeneralResponseData;
 import com.osama.daif.bloodbank.data.model.login.Client;
 
 public class DonationData {
@@ -55,13 +55,13 @@ public class DonationData {
     private String longitude;
     @SerializedName("city")
     @Expose
-    private CityData city;
+    private GeneralResponseData city;
     @SerializedName("client")
     @Expose
     private Client client;
     @SerializedName("blood_type")
     @Expose
-    private CityData bloodType;
+    private GeneralResponseData bloodType;
 
     public Integer getId() {
         return id;
@@ -183,11 +183,11 @@ public class DonationData {
         this.longitude = longitude;
     }
 
-    public CityData getCity() {
+    public GeneralResponseData getCity() {
         return city;
     }
 
-    public void setCity(CityData city) {
+    public void setCity(GeneralResponseData city) {
         this.city = city;
     }
 
@@ -199,11 +199,11 @@ public class DonationData {
         this.client = client;
     }
 
-    public CityData getBloodType() {
+    public GeneralResponseData getBloodType() {
         return bloodType;
     }
 
-    public void setBloodType(CityData bloodType) {
+    public void setBloodType(GeneralResponseData bloodType) {
         this.bloodType = bloodType;
     }
 

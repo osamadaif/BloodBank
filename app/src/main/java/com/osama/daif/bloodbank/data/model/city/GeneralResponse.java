@@ -15,7 +15,7 @@ public class GeneralResponse {
     private String msg;
     @SerializedName("data")
     @Expose
-    private List<CityData> data = null;
+    private List<GeneralResponseData> data = null;
 
     public Integer getStatus() {
         return status;
@@ -33,11 +33,11 @@ public class GeneralResponse {
         this.msg = msg;
     }
 
-    public List<CityData> getData() {
+    public List<GeneralResponseData> getData() {
         return data;
     }
 
-    public void setData(List<CityData> data) {
+    public void setData(List<GeneralResponseData> data) {
         this.data = data;
     }
 

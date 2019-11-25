@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -92,11 +93,11 @@ public class LoginFragment extends BaseFragment {
 
     private void getLogin() {
         if (txt_phone_number.getText ( ) == null || txt_phone_number.getText ( ).length ( ) == 0) {
-            txt_phone_number.setError (getResources ( ).getString (R.string.Please_insert_number));
+         //   txt_phone_number.setError (getResources ( ).getString (R.string.Please_insert_number));
             return;
         }
         if (txt_password.getText ( ) == null || txt_password.getText ( ).length ( ) == 0) {
-            txt_password.setError (getResources ( ).getString (R.string.Please_insert_password));
+         //   txt_password.setError (getResources ( ).getString (R.string.Please_insert_password));
             return;
         }
         String phoneNumber = txt_phone_number.getText ( ).toString ( ).trim ( );
@@ -106,8 +107,21 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 try {
+                    assert response.body() != null;
+                    if (txt_phone_number.getText ( ) == null || txt_phone_number.getText ( ).length ( ) != 11) {
+
+                        txt_phone_number.setError (response.body().getMsg());
+
+                    }
+                    if (txt_password.getText ( ) == null || txt_password.getText ( ).length ( ) < 3) {
+                        txt_password.setError (response.body().getMsg());
+
+                    }
                     if (response.body ().getStatus () == 1) {
                         startActivity (new Intent (baseActivity.getApplicationContext ( ), HomeCycleActivity.class));
+                    }else {
+
+                        Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -118,6 +132,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 try {
+                    Toast.makeText(baseActivity, t.getMessage(), Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
 

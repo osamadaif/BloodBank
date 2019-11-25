@@ -4,7 +4,7 @@ package com.osama.daif.bloodbank.data.model.city;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CityData {
+public class GeneralResponseData {
 
     @SerializedName("id")
     @Expose
@@ -23,9 +23,9 @@ public class CityData {
     private String governorateId;
     @SerializedName("governorate")
     @Expose
-    private CityData governorate;
+    private GeneralResponseData governorate;
 
-    public CityData(Integer id, String name){
+    public GeneralResponseData(Integer id, String name){
         this.id = id;
         this.name = name;
     }
@@ -70,11 +70,11 @@ public class CityData {
         this.governorateId = governorateId;
     }
 
-    public CityData getGovernorate() {
+    public GeneralResponseData getGovernorate() {
         return governorate;
     }
 
-    public void setGovernorate(CityData governorate) {
+    public void setGovernorate(GeneralResponseData governorate) {
         this.governorate = governorate;
     }
 

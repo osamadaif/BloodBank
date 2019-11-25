@@ -12,16 +12,16 @@ import retrofit2.Response;
 
 public class GeneralRequest {
 
-    public static void getData(Call<GeneralResponse> call, SpinnerAdapter2 adapter, String hint, Spinner spinner){
-        call.enqueue (new Callback<GeneralResponse> ( ) {
+    public static void getData(Call<GeneralResponse> call, SpinnerAdapter2 adapter, String hint, Spinner spinner) {
+        call.enqueue(new Callback<GeneralResponse>() {
             @Override
             public void onResponse(Call<GeneralResponse> call, Response<GeneralResponse> response) {
                 try {
-                    if (response.body ().getStatus () == 1) {
-                        adapter.setData (response.body ().getData (),hint);
-                        spinner.setAdapter (adapter);
+                    if (response.body().getStatus() == 1) {
+                        adapter.setData(response.body().getData(), hint);
+                        spinner.setAdapter(adapter);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
@@ -33,17 +33,17 @@ public class GeneralRequest {
         });
     }
 
-    public static void getData(Call<GeneralResponse> call, SpinnerAdapter2 adapter, String hint, Spinner spinner, AdapterView.OnItemSelectedListener listener){
-        call.enqueue (new Callback<GeneralResponse> ( ) {
+    public static void getData(Call<GeneralResponse> call, SpinnerAdapter2 adapter, String hint, Spinner spinner, AdapterView.OnItemSelectedListener listener) {
+        call.enqueue(new Callback<GeneralResponse>() {
             @Override
             public void onResponse(Call<GeneralResponse> call, Response<GeneralResponse> response) {
                 try {
-                    if (response.body ().getStatus () == 1) {
-                        adapter.setData (response.body ().getData (),hint);
-                        spinner.setAdapter (adapter);
-                        spinner.setOnItemSelectedListener (listener);
+                    if (response.body().getStatus() == 1) {
+                        adapter.setData(response.body().getData(), hint);
+                        spinner.setAdapter(adapter);
+                        spinner.setOnItemSelectedListener(listener);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }

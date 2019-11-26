@@ -48,4 +48,6 @@
     <string name="Please_insert_password">Please insert password</string>
     <string name="last_donation">last donation</string>
     <string name="birthday">birthday</string>
+    <string name="search">search</string>
+    <string name="sort_by">sort By</string>
 </resources>

@@ -56,7 +56,7 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
     }
 
     private void setData(PostsListVH holder, int position) {
-        holder.itemRvPostsTvTitlePost.setText(postsList.get(position).getTitle());
+        holder.itemRvPostsTvTitlePost.setText(postsList.get(position).getTitle ());
         Glide.with(mContext).load(postsList.get(position).getThumbnailFullPath()).into(holder.itemRvPostsIvImagePost);
     }
 

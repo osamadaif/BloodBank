@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.osama.daif.bloodbank.R;
@@ -52,10 +53,23 @@ public class SpinnerAdapter2 extends BaseAdapter {
         convertView = inflater.inflate(R.layout.item_custom_spinner_layout, null);
 
         TextView spinnerTV = convertView.findViewById(R.id.tvSpinnerLayout);
+//        ImageView spinnerIv = convertView.findViewById(R.id.ivSpinnerLayout);
 
         spinnerTV.setText(generalResponseDataList.get(position).getName());
         selectedId = generalResponseDataList.get(position).getId();
 
         return convertView;
     }
+
+//    @Override
+//    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//        if (convertView == null) {
+//            convertView = inflater.inflate(R.layout.item_custom_dropdown_layout, parent, false);
+//        }
+//        ImageView dropDownIV = convertView.findViewById(R.id.ivDropDownLayout);
+//        TextView dropDownTV = convertView.findViewById(R.id.tvDropDownLayout);
+//
+//        return convertView;
+//    }
+
 }

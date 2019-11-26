@@ -17,12 +17,13 @@
         app:tabSelectedTextColor="@color/white2"
         app:tabTextColor="@color/white2" />
 
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/home_container_fragment_vp_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/home_container_fragment_tl_tab_layout"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@id/home_container_fragment_tl_tab_layout"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/home_container_fragment_f_a_btn_add"
@@ -30,10 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/dim_24dp"
-        android:layout_marginBottom="@dimen/dim_88dp"
-        android:src="@drawable/ic_add_white" />
+        android:layout_marginBottom="136dp"
+        android:src="@drawable/ic_add_white"
+        app:layout_anchor="@+id/home_container_fragment_vp_view_pager"
+        app:layout_anchorGravity="bottom|right|end" />
 
 
 </RelativeLayout>
+

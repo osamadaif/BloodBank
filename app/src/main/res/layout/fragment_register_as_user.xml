@@ -93,17 +93,42 @@
 
                 </EditText>
 
-                <Spinner
-                    android:id="@+id/register_and_edit_profile_fragment_til_sp_blood_type"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dim_12dp"
-                    android:layout_marginTop="@dimen/dim_4dp"
-                    android:layout_marginEnd="@dimen/dim_12dp"
-                    android:layout_marginBottom="@dimen/dim_4dp"
-                    android:spinnerMode="dropdown"
-                    android:overlapAnchor="false"
-                    android:background="@drawable/spinner_background" />
+                    style="@style/text_input"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dim_8dp"
+                        android:paddingBottom="@dimen/dim_8dp"
+                        android:paddingStart="@dimen/dim_12dp"
+                        android:paddingEnd="0dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/blood_drop" />
+
+                    <Spinner
+                        android:id="@+id/register_and_edit_profile_fragment_til_sp_blood_type"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center_vertical"
+                        style="@style/spinner"
+                        android:spinnerMode="dropdown"
+                        android:overlapAnchor="false" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dim_8dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/arrow_down" />
+
+                </LinearLayout>
+
+
 
                 <EditText
                     android:id="@+id/register_edt_Last_donation_d"
@@ -121,29 +146,78 @@
                 </EditText>
 
 
-                <Spinner
-                    android:id="@+id/register_and_edit_profile_fragment_til_sp_government"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dim_12dp"
-                    android:layout_marginTop="@dimen/dim_4dp"
-                    android:layout_marginEnd="@dimen/dim_12dp"
-                    android:layout_marginBottom="@dimen/dim_4dp"
-                    android:spinnerMode="dropdown"
-                    android:overlapAnchor="false"
-                    android:background="@drawable/spinner_background" />
+                    style="@style/text_input"
+                    android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/register_and_edit_profile_fragment_til_sp_city"
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dim_8dp"
+                        android:paddingBottom="@dimen/dim_8dp"
+                        android:paddingStart="@dimen/dim_12dp"
+                        android:paddingEnd="0dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/home_fill" />
+
+                    <Spinner
+                        android:id="@+id/register_and_edit_profile_fragment_til_sp_government"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        style="@style/spinner"
+                        android:spinnerMode="dropdown"
+                        android:overlapAnchor="false" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dim_8dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/arrow_down" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dim_12dp"
-                    android:layout_marginTop="@dimen/dim_4dp"
-                    android:layout_marginEnd="@dimen/dim_12dp"
-                    android:layout_marginBottom="@dimen/dim_4dp"
-                    android:spinnerMode="dropdown"
-                    android:overlapAnchor="false"
-                    android:background="@drawable/spinner_background" />
+                    style="@style/text_input"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/dim_8dp"
+                        android:paddingBottom="@dimen/dim_8dp"
+                        android:paddingStart="@dimen/dim_12dp"
+                        android:paddingEnd="0dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/home_fill" />
+
+                    <Spinner
+                        android:id="@+id/register_and_edit_profile_fragment_til_sp_city"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:spinnerMode="dropdown"
+                        style="@style/spinner"
+                        android:overlapAnchor="false" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dim_8dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/arrow_down" />
+
+                </LinearLayout>
+
+
+
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/registers_and_edit_profile_fragment_title_phone_number"
@@ -205,7 +279,7 @@
                     android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dim_16dp"
-                    android:background="@drawable/background_edittext"
+                    android:background="@drawable/background_edit_text"
                     android:fontFamily="sans-serif-medium"
                     android:paddingStart="@dimen/dim_64dp"
                     android:paddingEnd="@dimen/dim_64dp"

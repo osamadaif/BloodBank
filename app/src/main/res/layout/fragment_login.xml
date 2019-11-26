@@ -24,18 +24,6 @@
 
     </ImageView>
 
-<!--    <EditText-->
-<!--        android:id="@+id/login_edt_phone"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="@string/phone"-->
-<!--        android:textColorHint="@color/colorPrimary"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        android:background="@drawable/background_edittext"-->
-<!--        android:padding="@dimen/dim_16dp"-->
-<!--        android:layout_margin="@dimen/dim_16dp"-->
-
-<!--        />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_fragment_title_phone_number"
@@ -81,7 +69,7 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        android:hint="@string/password"-->
 <!--        android:textColorHint="@color/colorPrimary"-->
-<!--        android:background="@drawable/background_edittext"-->
+<!--        android:background="@drawable/background_edit_text"-->
 <!--        android:layout_below="@id/login_fragment_title_phone_number"-->
 <!--        android:padding="@dimen/dim_16dp"-->
 <!--        android:layout_margin="@dimen/dim_16dp"-->
@@ -126,7 +114,7 @@
         android:layout_marginTop="@dimen/dim_24dp"
         android:paddingStart="@dimen/dim_64dp"
         android:paddingEnd="@dimen/dim_64dp"
-        android:background="@drawable/background_edittext"
+        android:background="@drawable/background_edit_text"
         android:text="@string/enter"
         android:textColor="@color/colorPrimary"
         android:fontFamily="sans-serif-medium">

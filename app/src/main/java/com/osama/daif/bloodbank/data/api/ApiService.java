@@ -2,6 +2,8 @@ package com.osama.daif.bloodbank.data.api;
 
 import com.osama.daif.bloodbank.data.model.city.GeneralResponse;
 import com.osama.daif.bloodbank.data.model.login.Login;
+import com.osama.daif.bloodbank.data.model.posts.Posts;
+import com.osama.daif.bloodbank.data.model.posts.PostsData;
 import com.osama.daif.bloodbank.data.model.register.Register;
 
 import retrofit2.Call;
@@ -39,6 +41,10 @@ public interface ApiService {
 
     @GET("cities")
     Call<GeneralResponse> getCities(@Query("governorate_id") int governorate_id);
+
+    @GET("posts")
+    Call<Posts> getAllPosts(@Query ("api_token") String api_token,
+                            @Query ("page") int page);
 
 
 

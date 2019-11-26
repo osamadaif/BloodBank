@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.HomeCycleActivity"></activity>
+        <activity android:name=".view.activity.HomeCycleActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".view.activity.UserCycleActivity" />
         <activity android:name=".view.activity.SplashCycleActivity"
             android:noHistory="true">

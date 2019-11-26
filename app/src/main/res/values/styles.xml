@@ -19,7 +19,7 @@
 
 
     <style name="text_input">
-        <item name="android:background">@drawable/background_edittext</item>
+        <item name="android:background">@drawable/background_edit_text</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorAccent_transparent</item>
         <item name="android:layout_marginTop">@dimen/dim_4dp</item>
@@ -30,7 +30,7 @@
     </style>
 
     <style name="text_input_spinner">
-        <item name="android:background">@drawable/background_edittext</item>
+        <item name="android:background">@drawable/background_edit_text</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorAccent_transparent</item>
         <item name="android:textSize">@dimen/dim_18sp</item>
@@ -50,13 +50,11 @@
     </style>
     <style name="spinner">
         <item name="android:background">@null</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorAccent</item>
         <item name="android:drawablePadding">@dimen/dim_8dp</item>
-        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorAccent_transparent</item>
         <item name="android:layout_marginTop">@dimen/dim_4dp</item>
         <item name="android:layout_marginBottom">@dimen/dim_4dp</item>
-        <item name="android:layout_marginStart">@dimen/dim_8dp</item>
-        <item name="android:layout_marginEnd">@dimen/dim_8dp</item>
         <item name="android:paddingStart">@dimen/dim_4dp</item>
         <item name="android:paddingEnd">@dimen/dim_4dp</item>
     </style>
@@ -140,15 +138,15 @@
         <item name="android:paddingEnd">@dimen/dim_4dp</item>
         <item name="android:paddingBottom">@dimen/dim_8dp</item>
     </style>
-<!--    <style name="text_view2">-->
-<!--        <item name="android:background">@drawable/shape_et</item>-->
-<!--        <item name="android:textColor">@color/gray2</item>-->
-<!--        <item name="android:layout_marginTop">@dimen/dim_4dp</item>-->
-<!--        <item name="android:layout_marginStart">@dimen/dim_8dp</item>-->
-<!--        <item name="android:layout_marginEnd">@dimen/dim_8dp</item>-->
-<!--        <item name="android:textSize">16sp</item>-->
-<!--        <item name="android:padding">@dimen/dim_8dp</item>-->
-<!--    </style>-->
+    <style name="text_view2">
+        <item name="android:background">@drawable/background_edit_text_gray</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorAccent_transparent</item>
+        <item name="android:layout_marginTop">@dimen/dim_16dp</item>
+        <item name="android:layout_marginStart">@dimen/dim_16dp</item>
+        <item name="android:layout_marginEnd">@dimen/dim_16dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
 <!--    <style name="bottom_navigation_select">-->
 <!--        <item name="android:visibility">invisible</item>-->

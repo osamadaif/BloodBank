@@ -104,7 +104,7 @@ public class RegisterAsUserFragment extends BaseFragment {
         initFragment();
 
         bloodTypeAdapter = new SpinnerAdapter2(getActivity());
-        getData(getClient().getBloodTypes(), bloodTypeAdapter, "blood type", spBloodType);
+        getData(getClient().getBloodTypes(), bloodTypeAdapter, getResources ().getString (R.string.blood_type), spBloodType);
 
         governoratesAdapter = new SpinnerAdapter2(getActivity());
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
@@ -113,7 +113,7 @@ public class RegisterAsUserFragment extends BaseFragment {
                 if (position != 0) {
 
                     cityAdapter = new SpinnerAdapter2(getActivity());
-                    getData(getClient().getCities(governoratesAdapter.selectedId), cityAdapter, "city", spCity);
+                    getData(getClient().getCities(governoratesAdapter.selectedId), cityAdapter, getResources ().getString (R.string.city), spCity);
                 }
             }
 
@@ -122,13 +122,15 @@ public class RegisterAsUserFragment extends BaseFragment {
 
             }
         };
-        getData(getClient().getGovernorates(), governoratesAdapter, "Governorates", spGovernment, listener);
+        getData(getClient().getGovernorates(), governoratesAdapter, getResources ().getString (R.string.governorate), spGovernment, listener);
+
         return view;
     }
 
     @Override
     public void onBack() {
         //super.onBack();
+
         replaceFragment(getActivity().getSupportFragmentManager(), R.id.fragment_user_container, new LoginFragment());
     }
 

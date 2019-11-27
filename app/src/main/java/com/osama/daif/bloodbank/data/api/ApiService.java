@@ -43,10 +43,23 @@ public interface ApiService {
     Call<GeneralResponse> getCities(@Query("governorate_id") int governorate_id);
 
     @GET("posts")
-    Call<Posts> getAllPosts(@Query ("api_token") String api_token,
-                            @Query ("page") int page);
+    Call<Posts> getAllPosts(@Query("api_token") String apiToken,
+                            @Query("page") int page);
+
+    @GET("posts")
+    Call<Posts> getPostsFilter(@Query("api_token") String apiToken,
+                               @Query("page") int page,
+                               @Query("keyword") String keyword,
+                               @Query("category_id") int category_id);
+
+    @GET("categories")
+    Call<GeneralResponse> getCategories();
 
 
+    @POST("post-toggle-favourite")
+    @FormUrlEncoded
+    Call<Login> getPostToggleFavourite(@Field("post_id") int post_id,
+                                       @Field("api_token") String apiToken);
 
 
 }

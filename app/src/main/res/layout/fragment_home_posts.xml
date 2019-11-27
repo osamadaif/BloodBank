@@ -37,14 +37,6 @@
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent_transparent" />
 
-        <Spinner
-            android:id="@+id/fragment_home_posts_sp_filter_sorting"
-            style="@style/spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
-
         <ImageView
             android:id="@+id/fragment_home_posts_img_sorting"
             android:layout_width="wrap_content"
@@ -53,9 +45,14 @@
             android:padding="@dimen/dim_8dp"
             android:src="@drawable/arrow_down" />
 
+        <Spinner
+            android:id="@+id/fragment_home_posts_sp_filter_sorting"
+            style="@style/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_home_posts_rv"

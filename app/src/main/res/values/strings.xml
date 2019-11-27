@@ -50,4 +50,7 @@
     <string name="birthday">birthday</string>
     <string name="search">search</string>
     <string name="sort_by">sort By</string>
+    <string name="USER_DATA_SHARED">USER_DATA</string>
+    <string name="categories">categories</string>
+    <string name="filter">filter</string>
 </resources>

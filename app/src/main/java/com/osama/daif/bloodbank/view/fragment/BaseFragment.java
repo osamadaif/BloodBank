@@ -10,9 +10,10 @@ public class BaseFragment extends Fragment {
 
     public void initFragment(){
         baseActivity = (BaseActivity) getActivity();
+        baseActivity.baseFragment = this;
     }
 
     public void onBack(){
-
+        baseActivity.superBackPressed();
     }
 }

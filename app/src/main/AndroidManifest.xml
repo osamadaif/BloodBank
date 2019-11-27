@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.activity.HomeCycleActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".view.activity.UserCycleActivity" />
         <activity android:name=".view.activity.SplashCycleActivity"
             android:noHistory="true">
@@ -26,3 +27,5 @@
     </application>
 
 </manifest>
+
+<!--    android:windowSoftInputMode="stateHidden"-->

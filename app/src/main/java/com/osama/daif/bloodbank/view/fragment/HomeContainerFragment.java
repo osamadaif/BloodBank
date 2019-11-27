@@ -122,7 +122,7 @@ public class HomeContainerFragment extends BaseFragment {
     }
     @Override
     public void onBack() {
-
+  //      super.onBack();
         if (backPressedTime + 2000 > System.currentTimeMillis()) {
             backToast.cancel();
             super.onBack();

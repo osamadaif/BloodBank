@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.osama.daif.bloodbank.R;
+import com.osama.daif.bloodbank.data.api.RetrofitClient;
+import com.osama.daif.bloodbank.data.model.login.Login;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
 
 import java.util.ArrayList;
@@ -21,6 +23,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 
 public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecyclerAdapter.PostsListVH> {
 
@@ -51,13 +59,43 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
     @Override
     public void onBindViewHolder(@NonNull final PostsListVH holder, final int position) {
         final PostsData posts = postsList.get(position);
-        setData(holder,position);
+        setData(holder, position);
 
     }
 
     private void setData(PostsListVH holder, int position) {
-        holder.itemRvPostsTvTitlePost.setText(postsList.get(position).getTitle ());
+        holder.itemRvPostsTvTitlePost.setText(postsList.get(position).getTitle());
         Glide.with(mContext).load(postsList.get(position).getThumbnailFullPath()).into(holder.itemRvPostsIvImagePost);
+        if (postsList.get(position).getIsFavourite()) {
+            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_fill);
+        } else {
+            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);
+        }
+
+        holder.itemRvPostsIvAddFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getClient().getPostToggleFavourite(postsList.get(position).getId(),loadUserData(activity).getApiToken()).enqueue(new Callback<Login>() {
+                    @Override
+                    public void onResponse(Call<Login> call, Response<Login> response) {
+                        postsList.get(position).setIsFavourite(postsList.get(position).getIsFavourite());
+                        if (postsList.get(position).getIsFavourite()) {
+                            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_fill);
+                        } else {
+                            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Login> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        });
+
+
     }
 
 
@@ -108,7 +146,7 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
         PostsListVH(View itemView) {
             super(itemView);
             view = itemView;
-            ButterKnife.bind(this,view);
+            ButterKnife.bind(this, view);
 
         }
 

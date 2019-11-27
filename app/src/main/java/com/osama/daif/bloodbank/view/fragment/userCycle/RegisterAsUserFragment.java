@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.adapter.CustomSpinnerAdapter;
 import com.osama.daif.bloodbank.adapter.SpinnerAdapter2;
+import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.data.model.DateTxt;
 import com.osama.daif.bloodbank.data.model.SpinnerItem;
 import com.osama.daif.bloodbank.data.model.city.GeneralResponse;
@@ -129,9 +130,7 @@ public class RegisterAsUserFragment extends BaseFragment {
 
     @Override
     public void onBack() {
-        //super.onBack();
-
-        replaceFragment(getActivity().getSupportFragmentManager(), R.id.fragment_user_container, new LoginFragment());
+        super.onBack();
     }
 
     @OnClick(R.id.registers_and_edit_profile_fragment_btn_register)
@@ -173,6 +172,7 @@ public class RegisterAsUserFragment extends BaseFragment {
             return;
         }
 
+
         //String userName = txtUserName.getText().toString().trim();
         String email = txtEmail.getText().toString().trim();
         String phoneNumber = txtPhoneNumber.getText().toString().trim();
@@ -191,6 +191,9 @@ public class RegisterAsUserFragment extends BaseFragment {
                     Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 } catch(Exception e) {
                     Toast.makeText(baseActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                if (response.body().getStatus() == 1) {
+                    SharedPreferencesManger.SaveData(getActivity(),getResources().getString(R.string.USER_DATA_SHARED),response.body().getData());
                 }
             }
 

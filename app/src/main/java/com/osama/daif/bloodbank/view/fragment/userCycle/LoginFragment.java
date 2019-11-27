@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.osama.daif.bloodbank.R;
+import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.data.model.login.Login;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
@@ -119,10 +120,12 @@ public class LoginFragment extends BaseFragment {
                     }
                     if (response.body ().getStatus () == 1) {
                         startActivity (new Intent (baseActivity.getApplicationContext ( ), HomeCycleActivity.class));
+                        SharedPreferencesManger.SaveData(getActivity(),getResources().getString(R.string.USER_DATA_SHARED),response.body().getData());
                     }else {
 
                         Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                     }
+
 
                 } catch (Exception e) {
 

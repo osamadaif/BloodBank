@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.osama.daif.bloodbank">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.HomeCycleActivity"
-
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".view.activity.HomeCycleActivity"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".view.activity.UserCycleActivity" />
-        <activity android:name=".view.activity.SplashCycleActivity"
+        <activity
+            android:name=".view.activity.SplashCycleActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,4 +31,4 @@
 
 </manifest>
 
-<!--    android:windowSoftInputMode="stateHidden"-->
+    <!--    android:windowSoftInputMode="stateHidden"-->

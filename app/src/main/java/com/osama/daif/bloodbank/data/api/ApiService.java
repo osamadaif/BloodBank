@@ -1,6 +1,7 @@
 package com.osama.daif.bloodbank.data.api;
 
 import com.osama.daif.bloodbank.data.model.city.GeneralResponse;
+import com.osama.daif.bloodbank.data.model.donation.Donation;
 import com.osama.daif.bloodbank.data.model.login.Login;
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
@@ -58,8 +59,23 @@ public interface ApiService {
 
     @POST("post-toggle-favourite")
     @FormUrlEncoded
-    Call<Login> getPostToggleFavourite(@Field("post_id") int post_id,
+    Call<Posts> getPostToggleFavourite(@Field("post_id") int post_id,
                                        @Field("api_token") String apiToken);
+
+    @GET("donation-requests")
+    Call<Donation> getAllDonations(@Query("api_token") String apiToken,
+                                   @Query("page") int page);
+
+    @GET("donation-requests")
+    Call<Donation> getAllDonationsRequestsFilter(@Query("api_token") String apiToken,
+                                                 @Query("blood_type_id") int blood_type_id,
+                                                 @Query("city_id") int city_id,
+                                                 @Query("page") int page);
+
+    @GET("post")
+    Call<Posts> getPostDetails(@Query("api_token") String apiToken,
+                                  @Query("post_id") int post_id,
+                                  @Query("page") int page);
 
 
 }

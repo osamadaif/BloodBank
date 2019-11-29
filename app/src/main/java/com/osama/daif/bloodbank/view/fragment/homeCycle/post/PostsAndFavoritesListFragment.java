@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,8 +37,14 @@ import retrofit2.Response;
 import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
+import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
-public class PostsAndFavoritesListFragment extends BaseFragment {
+public class PostsAndFavoritesListFragment extends BaseFragment implements PostsListRecyclerAdapter.ItemClickListener {
+    public static final String IMAGE_URL = "imageUrl";
+    public static final String EXTRA_TITLE = "postTitle";
+    public static final String EXTRA_IS_FAVOURITE = "postFav";
+    public static final String EXTRA_CONTENT = "postContent";
+    public static final String EXTRA_POST_ID = "postContent";
 
     @BindView(R.id.fragment_home_posts_rv)
     RecyclerView postsRecyclerView;
@@ -61,6 +68,9 @@ public class PostsAndFavoritesListFragment extends BaseFragment {
     private PostsListRecyclerAdapter postsAdapter;
     private int maxPage = 0;
     private OnEndLess onEndLess;
+
+    private long backPressedTime;
+    private Toast backToast;
 
     private SpinnerAdapter2 categoriesAdapter;
 
@@ -107,7 +117,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment {
             }
         };
         postsRecyclerView.setHasFixedSize(true);
-        postsAdapter = new PostsListRecyclerAdapter(getContext(), getActivity(), postsList);
+        postsAdapter = new PostsListRecyclerAdapter(getContext(), getActivity(), postsList,this);
         postsRecyclerView.setAdapter(postsAdapter);
 
         postsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -122,6 +132,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment {
                     fab.show();
                 else if (dy > 0 && fab.isShown())
                     fab.hide();
+
             }
 
         });
@@ -148,14 +159,22 @@ public class PostsAndFavoritesListFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
-
+                Toast.makeText (baseActivity, t.getMessage (), Toast.LENGTH_SHORT).show ( );
             }
         });
     }
 
     @Override
     public void onBack() {
-        super.onBack();
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            backToast.cancel();
+            getActivity ( ).finish ( );
+            return;
+        } else {
+            backToast = Toast.makeText(getActivity(), getResources().getString(R.string.Press_back_again), Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
     }
 
     @OnClick(R.id.fragment_home_posts_img_search)
@@ -180,8 +199,25 @@ public class PostsAndFavoritesListFragment extends BaseFragment {
 
            @Override
            public void onFailure(Call<Posts> call, Throwable t) {
-
+               Toast.makeText (baseActivity, t.getMessage (), Toast.LENGTH_SHORT).show ( );
            }
        });
+    }
+
+    @Override
+    public void onItemClickListener(int itemId) {
+        Bundle bundle = new Bundle();
+//        postsAdapter.getItemId (itemId);
+        PostsData clickedItem = postsList.get (itemId);
+        bundle.putString (EXTRA_TITLE, clickedItem.getTitle ());
+        bundle.putString (IMAGE_URL, clickedItem.getThumbnailFullPath ());
+        bundle.putString (EXTRA_CONTENT, clickedItem.getContent ());
+        bundle.putBoolean (EXTRA_IS_FAVOURITE, clickedItem.getIsFavourite ());
+        bundle.putInt (EXTRA_POST_ID, clickedItem.getId ());
+
+
+        replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.home_container_fr_frame, new PostDetailsFragment ( ), bundle);
+
+
     }
 }

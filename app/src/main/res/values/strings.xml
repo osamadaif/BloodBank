@@ -41,7 +41,8 @@
     <string name="blood_type_test">B+</string>
     <string name="name_donation_key">name:</string>
     <string name="name_of_the_user_value">name of the user</string>
-    <string name="hospital_donation_key">hospital</string>
+    <string name="hospital_donation_key">hospital:</string>
+    <string name="city_donation_key">city:</string>
     <string name="name_of_hospital_value">name of hospital</string>
     <string name="name_of_city_value">name of city</string>
     <string name="Please_insert_number">Please insert phone number</string>
@@ -53,4 +54,5 @@
     <string name="USER_DATA_SHARED">USER_DATA</string>
     <string name="categories">categories</string>
     <string name="filter">filter</string>
+    <string name="remember_me_instance">REMEMBER</string>
 </resources>

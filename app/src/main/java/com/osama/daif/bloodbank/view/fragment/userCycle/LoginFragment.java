@@ -18,6 +18,8 @@ import com.osama.daif.bloodbank.data.model.login.Login;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -68,7 +70,8 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public void onBack() {
-        super.onBack ( );
+//        super.onBack ( );
+        Objects.requireNonNull (getActivity ( )).finish ( );
     }
 
     @OnClick({R.id.login_fragment_ckb_remember_me, R.id.login_fragment_txt_forget_password, R.id.login_fragment_btn_enter, R.id.login_fragment_btn_create_account})
@@ -83,7 +86,7 @@ public class LoginFragment extends BaseFragment {
                 break;
 
             case R.id.login_fragment_btn_enter:
-                getLogin ();
+                getLogin ( );
                 break;
 
             case R.id.login_fragment_btn_create_account:
@@ -93,14 +96,6 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void getLogin() {
-        if (txt_phone_number.getText ( ) == null || txt_phone_number.getText ( ).length ( ) == 0) {
-         //   txt_phone_number.setError (getResources ( ).getString (R.string.Please_insert_number));
-            return;
-        }
-        if (txt_password.getText ( ) == null || txt_password.getText ( ).length ( ) == 0) {
-         //   txt_password.setError (getResources ( ).getString (R.string.Please_insert_password));
-            return;
-        }
         String phoneNumber = txt_phone_number.getText ( ).toString ( ).trim ( );
         String password = txt_password.getText ( ).toString ( ).trim ( );
 
@@ -108,22 +103,25 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 try {
-                    assert response.body() != null;
+                    assert response.body ( ) != null;
                     if (txt_phone_number.getText ( ) == null || txt_phone_number.getText ( ).length ( ) != 11) {
 
-                        txt_phone_number.setError (response.body().getMsg());
+                        txt_phone_number.setError (response.body ( ).getMsg ( ));
 
                     }
                     if (txt_password.getText ( ) == null || txt_password.getText ( ).length ( ) < 3) {
-                        txt_password.setError (response.body().getMsg());
+                        txt_password.setError (response.body ( ).getMsg ( ));
 
                     }
-                    if (response.body ().getStatus () == 1) {
+                    if (response.body ( ).getStatus ( ) == 1) {
                         startActivity (new Intent (baseActivity.getApplicationContext ( ), HomeCycleActivity.class));
-                        SharedPreferencesManger.SaveData(getActivity(),getResources().getString(R.string.USER_DATA_SHARED),response.body().getData());
-                    }else {
+                        SharedPreferencesManger.SaveData (getActivity ( ), getResources ( ).getString (R.string.USER_DATA_SHARED), response.body ( ).getData ( ));
+                        if (ckb_remember_me.isChecked ( )) {
+                            SharedPreferencesManger.SaveData (getActivity ( ), getResources ( ).getString (R.string.remember_me_instance), true);
+                        }
+                    } else {
 
-                        Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText (baseActivity, response.body ( ).getMsg ( ), Toast.LENGTH_SHORT).show ( );
                     }
 
 
@@ -135,7 +133,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 try {
-                    Toast.makeText(baseActivity, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText (baseActivity, t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
 
                 } catch (Exception e) {
 

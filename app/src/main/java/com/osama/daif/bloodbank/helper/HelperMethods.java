@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 
+import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -40,6 +41,16 @@ public class HelperMethods {
 
     public static void replaceFragment(FragmentManager getChildFragmentManager, int id, Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
+        transaction.replace(id, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public static void replaceFragment(FragmentManager getChildFragmentManager, int id, Fragment fragment, Bundle bundle) {
+        FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
+//        Bundle args = new Bundle();
+//        args.putInt ("ID", newId);
+        fragment.setArguments (bundle);
         transaction.replace(id, fragment);
         transaction.addToBackStack(null);
         transaction.commit();

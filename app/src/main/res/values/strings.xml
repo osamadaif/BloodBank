@@ -55,4 +55,10 @@
     <string name="categories">categories</string>
     <string name="filter">filter</string>
     <string name="remember_me_instance">REMEMBER</string>
+    <string name="favourite">favourite</string>
+    <string name="contact_us">contact us</string>
+    <string name="about_application">about application</string>
+    <string name="rate_application_in_play_store">rate application in play store</string>
+    <string name="notification_settings">notification settings</string>
+    <string name="logout">logout</string>
 </resources>

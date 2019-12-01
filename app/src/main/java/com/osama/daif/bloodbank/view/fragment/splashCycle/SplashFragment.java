@@ -42,6 +42,8 @@ public class SplashFragment extends BaseFragment {
                 if (loadUserData (getActivity ( )) != null) {
                     if (LoadBoolean (getActivity ( ), getResources ( ).getString (R.string.remember_me_instance)) == true) {
                         startActivity (new Intent (baseActivity.getApplicationContext ( ), HomeCycleActivity.class));
+                    }else {
+                        replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.fragment_splash_container, new SliderFragment ( ));
                     }
                 } else {
                     replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.fragment_splash_container, new SliderFragment ( ));

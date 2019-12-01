@@ -76,13 +76,14 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
             holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);
         }
 
+        postsList.get(position).setIsFavourite(postsList.get(position).getIsFavourite());
         holder.itemRvPostsIvAddFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getClient().getPostToggleFavourite(postsList.get(position).getId(),loadUserData(activity).getApiToken()).enqueue(new Callback<Posts>() {
                     @Override
                     public void onResponse(Call<Posts> call, Response<Posts> response) {
-                        postsList.get(position).setIsFavourite(postsList.get(position).getIsFavourite());
+
                         if (postsList.get(position).getIsFavourite()) {
                             postsList.get(position).setIsFavourite (false);
                             holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);

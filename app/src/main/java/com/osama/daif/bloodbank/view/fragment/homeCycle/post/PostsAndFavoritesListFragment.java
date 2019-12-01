@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.osama.daif.bloodbank.adapter.SpinnerAdapter2;
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
 import com.osama.daif.bloodbank.helper.OnEndLess;
+import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUs
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
-public class PostsAndFavoritesListFragment extends BaseFragment implements PostsListRecyclerAdapter.ItemClickListener {
+public class PostsAndFavoritesListFragment extends Fragment implements PostsListRecyclerAdapter.ItemClickListener {
     public static final String IMAGE_URL = "imageUrl";
     public static final String EXTRA_TITLE = "postTitle";
     public static final String EXTRA_IS_FAVOURITE = "postFav";
@@ -69,8 +71,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
     private int maxPage = 0;
     private OnEndLess onEndLess;
 
-    private long backPressedTime;
-    private Toast backToast;
+
 
     private SpinnerAdapter2 categoriesAdapter;
 
@@ -89,12 +90,11 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_posts, container, false);
         unbinder = ButterKnife.bind(this, view);
-        // Inflate the layout for this fragment
-        initFragment();
         fab = getActivity().findViewById(R.id.home_container_fragment_f_a_btn_add);
         initRecyclerView();
         categoriesAdapter = new SpinnerAdapter2(getActivity());
         getData(getClient().getCategories(), categoriesAdapter, getResources().getString(R.string.filter), fragmentHomePostsSpFilterSorting);
+
         return view;
     }
 
@@ -159,23 +159,11 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
 
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
-                Toast.makeText (baseActivity, t.getMessage (), Toast.LENGTH_SHORT).show ( );
+                Toast.makeText (getActivity(), t.getMessage (), Toast.LENGTH_SHORT).show ( );
             }
         });
     }
 
-    @Override
-    public void onBack() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            backToast.cancel();
-            getActivity ( ).finish ( );
-            return;
-        } else {
-            backToast = Toast.makeText(getActivity(), getResources().getString(R.string.Press_back_again), Toast.LENGTH_SHORT);
-            backToast.show();
-        }
-        backPressedTime = System.currentTimeMillis();
-    }
 
     @OnClick(R.id.fragment_home_posts_img_search)
     public void onClick() {
@@ -199,7 +187,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
 
            @Override
            public void onFailure(Call<Posts> call, Throwable t) {
-               Toast.makeText (baseActivity, t.getMessage (), Toast.LENGTH_SHORT).show ( );
+               Toast.makeText (getActivity(), t.getMessage (), Toast.LENGTH_SHORT).show ( );
            }
        });
     }
@@ -209,14 +197,16 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
         Bundle bundle = new Bundle();
 //        postsAdapter.getItemId (itemId);
         PostsData clickedItem = postsList.get (itemId);
-        bundle.putString (EXTRA_TITLE, clickedItem.getTitle ());
-        bundle.putString (IMAGE_URL, clickedItem.getThumbnailFullPath ());
-        bundle.putString (EXTRA_CONTENT, clickedItem.getContent ());
-        bundle.putBoolean (EXTRA_IS_FAVOURITE, clickedItem.getIsFavourite ());
-        bundle.putInt (EXTRA_POST_ID, clickedItem.getId ());
+//        bundle.putString (EXTRA_TITLE, clickedItem.getTitle ());
+//        bundle.putString (IMAGE_URL, clickedItem.getThumbnailFullPath ());
+//        bundle.putString (EXTRA_CONTENT, clickedItem.getContent ());
+//        bundle.putBoolean (EXTRA_IS_FAVOURITE, clickedItem.getIsFavourite ());
+//        bundle.putInt (EXTRA_POST_ID, clickedItem.getId ());
 
+        PostDetailsFragment postDetailsFragment = new PostDetailsFragment();
+        postDetailsFragment.postsData = clickedItem;
 
-        replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.home_container_fr_frame, new PostDetailsFragment ( ), bundle);
+        replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.home_container_fr_frame,postDetailsFragment);
 
 
     }

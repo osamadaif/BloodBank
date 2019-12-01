@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +36,7 @@ import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
 
-public class DonationListFragment extends BaseFragment {
+public class DonationListFragment extends Fragment {
 
     @BindView(R.id.fragment_home_donation_rv)
     RecyclerView fragmentHomeDonationRv;
@@ -75,8 +76,6 @@ public class DonationListFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.fragment_home_donation, container, false);
         unbinder = ButterKnife.bind (this, view);
-        // Inflate the layout for this fragment
-        initFragment ( );
         fab = getActivity ( ).findViewById (R.id.home_container_fragment_f_a_btn_add);
         initRecyclerView ( );
         apiToken = loadUserData (getActivity ( )).getApiToken ( );
@@ -196,14 +195,10 @@ public class DonationListFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Donation> call, Throwable t) {
-                Toast.makeText (baseActivity, t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                Toast.makeText (getActivity(), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
             }
         });
 
     }
 
-    @Override
-    public void onBack() {
-        super.onBack ( );
-    }
 }

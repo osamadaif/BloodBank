@@ -151,6 +151,7 @@
             android:src="@drawable/ic_settings_red" />
 
         <TextView
+            android:id="@+id/notification_settings_txt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"

@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.appcompat.widget.Toolbar;
 
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
+import com.osama.daif.bloodbank.view.fragment.homeCycle.notification.NotificationSettingFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
 public class MoreFragment extends BaseFragment {
 
@@ -33,6 +33,8 @@ public class MoreFragment extends BaseFragment {
     LinearLayout logoutItem;
 
     HomeCycleActivity homeCycleActivity;
+    @BindView(R.id.notification_settings_txt)
+    TextView notificationSettingsTxt;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -40,29 +42,29 @@ public class MoreFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate (savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_more, container, false);
+        View view = inflater.inflate (R.layout.fragment_more, container, false);
         // Inflate the layout for this fragment
-        initFragment();
-        homeCycleActivity = (HomeCycleActivity) getActivity();
-        homeCycleActivity.editToolbarTxtSup(R.string.more);
+        initFragment ( );
+        homeCycleActivity = (HomeCycleActivity) getActivity ( );
+        homeCycleActivity.editToolbarTxtSup (R.string.more);
 
         return view;
     }
 
     @Override
     public void onBack() {
-        super.onBack();
+        super.onBack ( );
     }
 
     @OnClick({R.id.favourite_item, R.id.contact_us_item, R.id.about_application_item, R.id.rate_application_item, R.id.notification_settings_item, R.id.logout_item})
     public void onClick(View view) {
-        switch (view.getId()) {
+        switch (view.getId ( )) {
             case R.id.favourite_item:
                 break;
             case R.id.contact_us_item:
@@ -72,9 +74,15 @@ public class MoreFragment extends BaseFragment {
             case R.id.rate_application_item:
                 break;
             case R.id.notification_settings_item:
+                replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.home_container_fr_frame, new NotificationSettingFragment ( ));
                 break;
             case R.id.logout_item:
                 break;
         }
+    }
+
+    @OnClick(R.id.notification_settings_txt)
+    public void onClick() {
+
     }
 }

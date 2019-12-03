@@ -22,7 +22,6 @@
         android:id="@+id/home_container_fragment_vp_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_below="@id/home_container_fragment_tl_tab_layout"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -32,11 +31,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="@dimen/dim_24dp"
-        android:layout_marginBottom="136dp"
-        android:src="@drawable/ic_add_white"
-        app:layout_anchor="@+id/home_container_fragment_vp_view_pager"
-        app:layout_anchorGravity="bottom|right|end" />
+        android:layout_marginBottom="128dp"
+        app:backgroundTint="@color/white"
+        android:src="@drawable/ic_add_red" />
 
 
 </RelativeLayout>
 
+
+<!--    app:layout_anchor="@id/home_container_fragment_vp_view_pager"-->
+<!--    app:layout_anchorGravity="bottom|right|end"-->

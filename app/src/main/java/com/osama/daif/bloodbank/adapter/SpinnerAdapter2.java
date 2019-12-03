@@ -61,7 +61,14 @@ public class SpinnerAdapter2 extends BaseAdapter {
         return convertView;
     }
 
-//    @Override
+    public int getSelectedId() {
+        return selectedId;
+    }
+
+    public void setSelectedId(int selectedId) {
+        this.selectedId = selectedId;
+    }
+    //    @Override
 //    public View getDropDownView(int position, View convertView, ViewGroup parent) {
 //        if (convertView == null) {
 //            convertView = inflater.inflate(R.layout.item_custom_dropdown_layout, parent, false);

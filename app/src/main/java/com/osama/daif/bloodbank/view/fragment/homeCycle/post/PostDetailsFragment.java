@@ -32,18 +32,11 @@ public class PostDetailsFragment extends BaseFragment {
     TextView fragmentPostDetailsTxtTitle;
     @BindView(R.id.fragment_post_details_txt_content)
     TextView fragmentPostDetailsTxtContent;
-    @BindView(R.id.toolbar_details)
-    Toolbar toolbarDetails;
     private Unbinder unbinder = null;
 
     String apiToken;
-    private int postId;
-    private String postTitle;
-    private String postContent;
-    private boolean postIsFav;
-    private String postImage;
     public PostsData postsData;
-    HomeCycleActivity homeCycleActivity;
+    private HomeCycleActivity homeCycleActivity;
 
 
     public PostDetailsFragment() {
@@ -60,17 +53,10 @@ public class PostDetailsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_details, container, false);
         unbinder = ButterKnife.bind(this, view);
-//        assert getArguments ( ) != null;
-//        postId = getArguments ().getInt (EXTRA_POST_ID);
-//        postTitle = getArguments ().getString (EXTRA_TITLE);
-//        postContent = getArguments ().getString (EXTRA_CONTENT);
-//        postImage = getArguments ().getString (IMAGE_URL);
-//        postIsFav = getArguments ().getBoolean (EXTRA_IS_FAVOURITE);
-
-        // Inflate the layout for this fragment
-
         homeCycleActivity = (HomeCycleActivity) getActivity();
+        assert homeCycleActivity != null;
         homeCycleActivity.appbarVisibility(View.GONE);
+        homeCycleActivity.bottomNavigationVisibility (View.GONE);
         initFragment();
         apiToken = loadUserData(getActivity()).getApiToken();
         getPostDetails();

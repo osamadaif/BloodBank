@@ -194,14 +194,7 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
 
     @Override
     public void onItemClickListener(int itemId) {
-        Bundle bundle = new Bundle();
-//        postsAdapter.getItemId (itemId);
         PostsData clickedItem = postsList.get (itemId);
-//        bundle.putString (EXTRA_TITLE, clickedItem.getTitle ());
-//        bundle.putString (IMAGE_URL, clickedItem.getThumbnailFullPath ());
-//        bundle.putString (EXTRA_CONTENT, clickedItem.getContent ());
-//        bundle.putBoolean (EXTRA_IS_FAVOURITE, clickedItem.getIsFavourite ());
-//        bundle.putInt (EXTRA_POST_ID, clickedItem.getId ());
 
         PostDetailsFragment postDetailsFragment = new PostDetailsFragment();
         postDetailsFragment.postsData = clickedItem;

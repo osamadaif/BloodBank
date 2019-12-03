@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Blood Bank</string>
+    <string name="google_maps_api_key">AIzaSyCEh8XUsrTRVkKU0dWlyva9SR6H6YRx8ao</string>
     <string name="phone">phone</string>
     <string name="password">password</string>
     <string name="remember_me">Remember me</string>
@@ -19,7 +20,7 @@
     <string name="birthday_date">birthday date</string>
     <string name="blood_type">blood type</string>
     <string name="Last_donation_date">Last donation date</string>
-    <string name="governorate">governorate</string>
+    <string name="governorate">governorates</string>
     <string name="city">city</string>
     <string name="confirm_password">confirm password</string>
     <string name="register">register</string>
@@ -61,4 +62,15 @@
     <string name="rate_application_in_play_store">rate application in play store</string>
     <string name="notification_settings">notification settings</string>
     <string name="logout">logout</string>
+    <string name="age">age</string>
+    <string name="number_of_bags">number of bags</string>
+    <string name="hospital_address">hospital address</string>
+    <string name="notes">notes</string>
+    <string name="donation_request">donation request</string>
+    <string name="edit">edit</string>
+    <string name="edit_profile">edit profile</string>
+    <string name="please_select_the_governorates_and_blood_types">please select the governorates and blood types you want to be notified of their donations via notifications</string>
+    <string name="save">save</string>
+    <string name="test">test</string>
+    <string name="notification_setting">Notification setting</string>
 </resources>

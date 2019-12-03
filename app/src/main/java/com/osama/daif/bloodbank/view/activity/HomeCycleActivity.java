@@ -15,6 +15,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.view.fragment.HomeContainerFragment;
+import com.osama.daif.bloodbank.view.fragment.homeCycle.EditProfileFragment;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.staticScreen.MoreFragment;
 
 import butterknife.BindView;
@@ -65,6 +66,7 @@ public class HomeCycleActivity extends BaseActivity {
                     replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new HomeContainerFragment());
                 }
                 else if (id == R.id.nav_user_account){
+                    replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new EditProfileFragment ());
 
                 }
                 else if (id == R.id.nav_notification){
@@ -73,7 +75,7 @@ public class HomeCycleActivity extends BaseActivity {
                 else if (id == R.id.nav_more){
                     replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new MoreFragment());
                 }
-                return false;
+                return true;
             }
         });
 
@@ -85,6 +87,10 @@ public class HomeCycleActivity extends BaseActivity {
 
     public void appbarVisibility(int visibility) {
         appbarId.setVisibility(visibility);
+    }
+
+    public void bottomNavigationVisibility(int visibility){
+        homeCycleBottomNavigation.setVisibility(visibility);
     }
 
 

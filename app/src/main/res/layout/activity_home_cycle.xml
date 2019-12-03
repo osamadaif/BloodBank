@@ -31,7 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
-        android:padding="@dimen/dim_8dp"
         app:itemIconSize="@dimen/dim_30dp"
         app:itemIconTint="@color/white2"
         app:itemTextColor="@color/white2"

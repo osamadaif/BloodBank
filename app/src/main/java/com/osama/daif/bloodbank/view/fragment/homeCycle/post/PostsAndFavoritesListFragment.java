@@ -23,7 +23,6 @@ import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
 import com.osama.daif.bloodbank.helper.OnEndLess;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
-import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +35,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.osama.daif.bloodbank.adapter.PostsListRecyclerAdapter.changeFav;
 import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
-public class PostsAndFavoritesListFragment extends Fragment implements PostsListRecyclerAdapter.ItemClickListener {
-    public static final String IMAGE_URL = "imageUrl";
-    public static final String EXTRA_TITLE = "postTitle";
-    public static final String EXTRA_IS_FAVOURITE = "postFav";
-    public static final String EXTRA_CONTENT = "postContent";
-    public static final String EXTRA_POST_ID = "postContent";
+public class PostsAndFavoritesListFragment extends Fragment implements PostsListRecyclerAdapter.itemClickListener {
+    public static final String EXTRA_FAV = "fav page";
+    private static final int DEFAULT_ID = -1;
+    public static final String INSTANCE_ID = "instanceTaskId";
+    private int mId = DEFAULT_ID;
 
     @BindView(R.id.fragment_home_posts_rv)
     RecyclerView postsRecyclerView;
@@ -70,7 +69,7 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
     private PostsListRecyclerAdapter postsAdapter;
     private int maxPage = 0;
     private OnEndLess onEndLess;
-
+    HomeCycleActivity homeCycleActivity;
 
 
     private SpinnerAdapter2 categoriesAdapter;
@@ -83,6 +82,8 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -90,10 +91,33 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_posts, container, false);
         unbinder = ButterKnife.bind(this, view);
-        fab = getActivity().findViewById(R.id.home_container_fragment_f_a_btn_add);
-        initRecyclerView();
-        categoriesAdapter = new SpinnerAdapter2(getActivity());
-        getData(getClient().getCategories(), categoriesAdapter, getResources().getString(R.string.filter), fragmentHomePostsSpFilterSorting);
+
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_ID)) {
+            mId = savedInstanceState.getInt(INSTANCE_ID, DEFAULT_ID);
+        }
+
+        Bundle bundle = getArguments();
+
+        if (bundle != null && bundle.getInt(EXTRA_FAV) == 22) {
+            bundle.getInt(EXTRA_FAV);
+            homeCycleActivity = (HomeCycleActivity) getActivity();
+            homeCycleActivity.appbarVisibility(View.VISIBLE);
+            homeCycleActivity.editToolbarTxtSup(R.string.favourite);
+            homeCycleActivity.bottomNavigationVisibility(View.GONE);
+            fragmentHomePostsLayout.setVisibility(View.GONE);
+            initFavRecyclerView();
+        } else {
+            homeCycleActivity = (HomeCycleActivity) getActivity();
+            homeCycleActivity.editToolbarTxtSup(R.string.app_name);
+            homeCycleActivity.bottomNavigationVisibility(View.VISIBLE);
+            fragmentHomePostsLayout.setVisibility(View.VISIBLE);
+            fab = getActivity().findViewById(R.id.home_container_fragment_f_a_btn_add);
+            initRecyclerView();
+            categoriesAdapter = new SpinnerAdapter2(getActivity());
+            getData(getClient().getCategories(), categoriesAdapter, getResources().getString(R.string.filter), fragmentHomePostsSpFilterSorting);
+        }
+
 
         return view;
     }
@@ -117,7 +141,7 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
             }
         };
         postsRecyclerView.setHasFixedSize(true);
-        postsAdapter = new PostsListRecyclerAdapter(getContext(), getActivity(), postsList,this);
+        postsAdapter = new PostsListRecyclerAdapter(getContext(), getActivity(), postsList, this, false);
         postsRecyclerView.setAdapter(postsAdapter);
 
         postsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -138,8 +162,12 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
         });
         postsRecyclerView.addOnScrollListener(onEndLess);
 
-        getPosts(1);
+        if (postsList.size() == 0 || changeFav) {
+            getPosts(1);
+            changeFav = false;
+        }
     }
+
 
     private void getPosts(int page) {
         String apiToken = loadUserData(getActivity()).getApiToken();
@@ -159,7 +187,41 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
 
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
-                Toast.makeText (getActivity(), t.getMessage (), Toast.LENGTH_SHORT).show ( );
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    private void initFavRecyclerView() {
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        postsRecyclerView.setLayoutManager(linearLayoutManager);
+
+        postsRecyclerView.setHasFixedSize(true);
+        postsAdapter = new PostsListRecyclerAdapter(getContext(), getActivity(), postsList, this, true);
+        postsRecyclerView.setAdapter(postsAdapter);
+        getFav();
+    }
+
+    private void getFav() {
+        String apiToken = loadUserData(getActivity()).getApiToken();
+        getClient().getFavouritesPosts(apiToken).enqueue(new Callback<Posts>() {
+            @Override
+            public void onResponse(Call<Posts> call, Response<Posts> response) {
+                try {
+                    if (response.body().getStatus() == 1) {
+                        postsList.clear();
+                        postsList.addAll(response.body().getData().getData());
+                        postsAdapter.notifyDataSetChanged();
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Posts> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -170,37 +232,38 @@ public class PostsAndFavoritesListFragment extends Fragment implements PostsList
         String apiToken = loadUserData(getActivity()).getApiToken();
         String searchTXT = fragmentHomePostsTxtSearch.getText().toString().trim();
 
-       getClient().getPostsFilter(apiToken,1,searchTXT,categoriesAdapter.selectedId).enqueue(new Callback<Posts>() {
-           @Override
-           public void onResponse(Call<Posts> call, Response<Posts> response) {
-               try {
-                   if (response.body().getStatus() == 1) {
-                       maxPage = response.body().getData().getLastPage();
-                       postsList.clear();
-                       postsList.addAll(response.body().getData().getData());
-                       postsAdapter.notifyDataSetChanged();
-                   }
-               } catch (Exception e) {
+        getClient().getPostsFilter(apiToken, 1, searchTXT, categoriesAdapter.selectedId).enqueue(new Callback<Posts>() {
+            @Override
+            public void onResponse(Call<Posts> call, Response<Posts> response) {
+                try {
+                    if (response.body().getStatus() == 1) {
+                        maxPage = response.body().getData().getLastPage();
+                        postsList.clear();
+                        postsList.addAll(response.body().getData().getData());
+                        postsAdapter.notifyDataSetChanged();
+                    }
+                } catch (Exception e) {
 
-               }
-           }
+                }
+            }
 
-           @Override
-           public void onFailure(Call<Posts> call, Throwable t) {
-               Toast.makeText (getActivity(), t.getMessage (), Toast.LENGTH_SHORT).show ( );
-           }
-       });
+            @Override
+            public void onFailure(Call<Posts> call, Throwable t) {
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void onItemClickListener(int itemId) {
-        PostsData clickedItem = postsList.get (itemId);
+        PostsData clickedItem = postsList.get(itemId);
 
         PostDetailsFragment postDetailsFragment = new PostDetailsFragment();
         postDetailsFragment.postsData = clickedItem;
 
-        replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.home_container_fr_frame,postDetailsFragment);
+        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, postDetailsFragment);
 
 
     }
+
 }

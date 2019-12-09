@@ -41,6 +41,7 @@ public class HomeCycleActivity extends BaseActivity {
     BottomNavigationView homeCycleBottomNavigation;
     private long backPressedTime;
     private Toast backToast;
+    private HomeContainerFragment homeContainerFragment;
 
 
     @Override
@@ -63,7 +64,10 @@ public class HomeCycleActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id =item.getItemId();
                 if (id == R.id.nav_home){
-                    replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new HomeContainerFragment());
+                    if (homeContainerFragment == null) {
+                        homeContainerFragment = new HomeContainerFragment();
+                    }
+                    replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, homeContainerFragment);
                 }
                 else if (id == R.id.nav_user_account){
                     replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new EditProfileFragment ());
@@ -81,6 +85,11 @@ public class HomeCycleActivity extends BaseActivity {
 
 
     }
+
+    public void setSelection(int id){
+        homeCycleBottomNavigation.setSelectedItemId(id);
+    }
+
     public void  editToolbarTxtSup(int nameID){
         toolbarTxtSup.setText(getString(nameID));
     }

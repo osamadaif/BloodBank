@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.osama.daif.bloodbank.R;
-import com.osama.daif.bloodbank.data.api.RetrofitClient;
-import com.osama.daif.bloodbank.data.model.login.Login;
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
 
@@ -24,7 +22,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,21 +31,22 @@ import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUs
 
 public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecyclerAdapter.PostsListVH> {
 
-    private static final String TAG = PostsListRecyclerAdapter.class.getSimpleName();
-
-
+    private boolean fav = false;
     private List<PostsData> postsList = new ArrayList<>();
     private Context mContext;
     private Activity activity;
     private String searchString = "";
-    private ItemClickListener mItemClickListener;
+    private itemClickListener mItemClickListener;
+    public static boolean changeFav = false;
 
 
-    public PostsListRecyclerAdapter(Context context, Activity activity, List<PostsData> postsList,ItemClickListener listener) {
+    public PostsListRecyclerAdapter(Context context, Activity activity, List<PostsData> postsList, itemClickListener listener, boolean fav) {
         mContext = context;
         this.activity = activity;
+        this.fav = fav;
         this.postsList = postsList;
         this.mItemClickListener = listener;
+
     }
 
     @Override
@@ -80,22 +78,28 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
         holder.itemRvPostsIvAddFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getClient().getPostToggleFavourite(postsList.get(position).getId(),loadUserData(activity).getApiToken()).enqueue(new Callback<Posts>() {
+                getClient().getPostToggleFavourite(postsList.get(position).getId(), loadUserData(activity).getApiToken()).enqueue(new Callback<Posts>() {
                     @Override
                     public void onResponse(Call<Posts> call, Response<Posts> response) {
 
+
                         if (postsList.get(position).getIsFavourite()) {
-                            postsList.get(position).setIsFavourite (false);
+                            postsList.get(position).setIsFavourite(false);
                             holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);
                         } else {
-                            postsList.get(position).setIsFavourite (true);
+                            postsList.get(position).setIsFavourite(true);
                             holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_fill);
                         }
+                        if (fav) {
+                            postsList.remove(position);
+                            changeFav = true;
+                        }
+                        notifyDataSetChanged();
                     }
 
                     @Override
                     public void onFailure(Call<Posts> call, Throwable t) {
-                        Toast.makeText (activity, t.getMessage (), Toast.LENGTH_SHORT).show ( );
+                        Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -150,33 +154,22 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
             super(itemView);
             view = itemView;
             ButterKnife.bind(this, view);
-            itemView.setOnClickListener (this);
+            itemView.setOnClickListener(this);
 
         }
-
-
-        public List<PostsData> getItems() {
-            return postsList;
-        }
-
-
-        public void setItems(List<PostsData> itemList) {
-            postsList = itemList;
-            notifyDataSetChanged();
-        }
-
         @Override
         public void onClick(View v) {
-            if (getAdapterPosition ( ) != RecyclerView.NO_POSITION) {
-                int itemId = getAdapterPosition ();
-                mItemClickListener.onItemClickListener (itemId);
+            if (getAdapterPosition() != RecyclerView.NO_POSITION) {
+                int itemId = getAdapterPosition();
+                mItemClickListener.onItemClickListener(itemId);
             }
         }
 
     }
 
-    public interface ItemClickListener {
+    public interface itemClickListener {
         void onItemClickListener(int itemId);
 
     }
+
 }

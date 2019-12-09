@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,7 +40,6 @@ import static com.osama.daif.bloodbank.helper.HelperMethods.showCalender;
 
 public class EditProfileFragment extends BaseFragment {
 
-
     @BindView(R.id.edit_profile_fragment_txt_user_name)
     AppCompatEditText editProfileFragmentTxtUserName;
     @BindView(R.id.edit_profile_fragment_txt_email)
@@ -61,6 +62,10 @@ public class EditProfileFragment extends BaseFragment {
     AppCompatEditText editProfileFragmentTxtConfirmPassword;
     @BindView(R.id.edit_profile_fragment_btn_register)
     Button editProfileFragmentBtnRegister;
+    @BindView(R.id.edit_profile_fragment_lay_base_layout)
+    LinearLayout editProfileFragmentLayBaseLayout;
+    @BindView(R.id.edit_profile_fragment_sv_base_scroll_view)
+    ScrollView editProfileFragmentSvBaseScrollView;
 
     private Unbinder unbinder = null;
 
@@ -82,34 +87,35 @@ public class EditProfileFragment extends BaseFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate (savedInstanceState);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate (R.layout.fragment_edit_profile, container, false);
-        unbinder = ButterKnife.bind (this, view);
+        View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        unbinder = ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
-        initFragment ( );
+        initFragment();
         homeCycleActivity = (HomeCycleActivity) getActivity();
         assert homeCycleActivity != null;
+        homeCycleActivity.bottomNavigationVisibility(View.GONE);
         homeCycleActivity.editToolbarTxtSup(R.string.edit_profile);
 
         apiToken = loadUserData(getActivity()).getApiToken();
 
 
-        bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
-        getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), spBloodType);
+        bloodTypeAdapter = new SpinnerAdapter2(getActivity());
+        getData(getClient().getBloodTypes(), bloodTypeAdapter, getResources().getString(R.string.blood_type), spBloodType);
 
-        governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
-        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener ( ) {
+        governoratesAdapter = new SpinnerAdapter2(getActivity());
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0) {
 
-                    cityAdapter = new SpinnerAdapter2 (getActivity ( ));
-                    getData (getClient ( ).getCities (governoratesAdapter.selectedId), cityAdapter, getResources ( ).getString (R.string.city), spCity);
+                    cityAdapter = new SpinnerAdapter2(getActivity());
+                    getData(getClient().getCities(governoratesAdapter.selectedId), cityAdapter, getResources().getString(R.string.city), spCity);
                 }
             }
 
@@ -118,103 +124,114 @@ public class EditProfileFragment extends BaseFragment {
 
             }
         };
-        getData (getClient ( ).getGovernorates ( ), governoratesAdapter, getResources ( ).getString (R.string.governorate), spGovernment, listener);
-        getProfileData ();
+        getData(getClient().getGovernorates(), governoratesAdapter, getResources().getString(R.string.governorate), spGovernment, listener);
+        getProfileData();
 
         return view;
     }
 
+    void setHeights() {
+        ViewGroup.LayoutParams params = editProfileFragmentLayBaseLayout.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        editProfileFragmentLayBaseLayout.setLayoutParams(params);
+
+        ViewGroup.LayoutParams params2 = editProfileFragmentSvBaseScrollView.getLayoutParams();
+        params2.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        editProfileFragmentSvBaseScrollView.setLayoutParams(params2);
+    }
+
     @Override
     public void onBack() {
-        super.onBack ( );
+//        super.onBack();
+        homeCycleActivity.setSelection(R.id.nav_home);
     }
 
 
     @OnClick({R.id.edit_profile_fragment_birthday, R.id.edit_profile_fragment_Last_donation_d})
     public void onClick(View view) {
-        Calendar calendar = Calendar.getInstance ( );
+        Calendar calendar = Calendar.getInstance();
 
-        switch (view.getId ( )) {
+        switch (view.getId()) {
             case R.id.edit_profile_fragment_birthday:
 
-                DateTxt dateTxt = new DateTxt ("01", "01", "1980", "01-01-1980");
-                showCalender (getActivity ( ), getResources ( ).getString (R.string.birthday), editProfileFragmentBirthday, dateTxt);
+                DateTxt dateTxt = new DateTxt("01", "01", "1980", "01-01-1980");
+                showCalender(getActivity(), getResources().getString(R.string.birthday), editProfileFragmentBirthday, dateTxt);
                 break;
 
             case R.id.edit_profile_fragment_Last_donation_d:
-                year = calendar.get (Calendar.YEAR);
-                String sYear = String.valueOf (year);
-                month = calendar.get (Calendar.MONTH);
-                String sMonth = String.valueOf (month);
-                day = calendar.get (Calendar.DAY_OF_MONTH);
-                String sDay = String.valueOf (day);
+                year = calendar.get(Calendar.YEAR);
+                String sYear = String.valueOf(year);
+                month = calendar.get(Calendar.MONTH);
+                String sMonth = String.valueOf(month);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                String sDay = String.valueOf(day);
 
                 String txt = day + "/" + (month + 1) + "/" + year;
-                DateTxt dateTxt2 = new DateTxt (sDay, sMonth, sYear, txt);
-                showCalender (getActivity ( ), getResources ( ).getString (R.string.last_donation), editProfileFragmentLastDonationD, dateTxt2);
+                DateTxt dateTxt2 = new DateTxt(sDay, sMonth, sYear, txt);
+                showCalender(getActivity(), getResources().getString(R.string.last_donation), editProfileFragmentLastDonationD, dateTxt2);
 
                 break;
         }
     }
 
     private void setEditProfileData() {
-        String userName = editProfileFragmentTxtUserName.getText ( ).toString ( ).trim ( );
-        if (userName.trim ( ).equals ("") || editProfileFragmentTxtUserName.getText ( ) == null || editProfileFragmentTxtUserName.getText ( ).length ( ) == 0) {
+        String userName = editProfileFragmentTxtUserName.getText().toString().trim();
+        if (userName.trim().equals("") || editProfileFragmentTxtUserName.getText() == null || editProfileFragmentTxtUserName.getText().length() == 0) {
             //   txt_phone_number.setError (getResources ( ).getString (R.string.Please_insert_number));
             return;
         }
 
 
         //String userName = txtUserName.getText().toString().trim();
-        String email = editProfileFragmentTxtEmail.getText ( ).toString ( ).trim ( );
-        String phoneNumber = editProfileFragmentTxtPhoneNumber.getText ( ).toString ( ).trim ( );
-        String password = editProfileFragmentTxtPassword.getText ( ).toString ( ).trim ( );
-        String confirmPassword = editProfileFragmentTxtConfirmPassword.getText ( ).toString ( ).trim ( );
-        String birthday = editProfileFragmentBirthday.getText ( ).toString ( ).trim ( );
-        String lastDonationDate = editProfileFragmentLastDonationD.getText ( ).toString ( ).trim ( );
+        String email = editProfileFragmentTxtEmail.getText().toString().trim();
+        String phoneNumber = editProfileFragmentTxtPhoneNumber.getText().toString().trim();
+        String password = editProfileFragmentTxtPassword.getText().toString().trim();
+        String confirmPassword = editProfileFragmentTxtConfirmPassword.getText().toString().trim();
+        String birthday = editProfileFragmentBirthday.getText().toString().trim();
+        String lastDonationDate = editProfileFragmentLastDonationD.getText().toString().trim();
         int bloodType = bloodTypeAdapter.selectedId;
         int governorate = governoratesAdapter.selectedId;
         int city = cityAdapter.selectedId;
 
-        getClient ( ).editProfile (userName, email, birthday, city, phoneNumber, lastDonationDate, password, confirmPassword, bloodType,apiToken).enqueue (new Callback<Register> ( ) {
+        getClient().editProfile(userName, email, birthday, city, phoneNumber, lastDonationDate, password, confirmPassword, bloodType, apiToken).enqueue(new Callback<Register>() {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 try {
-                    Toast.makeText (baseActivity, response.body ( ).getMsg ( ), Toast.LENGTH_SHORT).show ( );
+                    Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText (baseActivity, e.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                    Toast.makeText(baseActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-                if (response.body ( ).getStatus ( ) == 1) {
-                    SharedPreferencesManger.SaveData (getActivity ( ), getResources ( ).getString (R.string.USER_DATA_SHARED), response.body ( ).getData ( ));
+                if (response.body().getStatus() == 1) {
+                    SharedPreferencesManger.SaveData(getActivity(), getResources().getString(R.string.USER_DATA_SHARED), response.body().getData());
                 }
             }
 
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
-                Toast.makeText (baseActivity, t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                Toast.makeText(baseActivity, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void getProfileData(){
-        getClient ().getProfile (apiToken).enqueue (new Callback<Register> ( ) {
+    private void getProfileData() {
+        getClient().getProfile(apiToken).enqueue(new Callback<Register>() {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 try {
                     if (response.body().getStatus() == 1) {
-                        editProfileFragmentTxtUserName.setText (response.body ().getData ().getClient ().getName ());
-                        editProfileFragmentTxtEmail.setText (response.body ().getData ().getClient ().getEmail ());
-                        editProfileFragmentBirthday.setText (response.body ().getData ().getClient ().getBirthDate ());
-                        editProfileFragmentLastDonationD.setText (response.body ().getData ().getClient ().getDonationLastDate ());
-                        editProfileFragmentTxtPhoneNumber.setText (response.body ().getData ().getClient ().getPhone ());
-                        spBloodType.setSelection (response.body ().getData ().getClient ().getBloodType ().getId ());
-                        spGovernment.setSelection (response.body ().getData ().getClient ().getCity ().getGovernorate ().getId ());
-                        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener ( ) {
+                        editProfileFragmentTxtUserName.setText(response.body().getData().getClient().getName());
+                        editProfileFragmentTxtEmail.setText(response.body().getData().getClient().getEmail());
+                        editProfileFragmentBirthday.setText(response.body().getData().getClient().getBirthDate());
+                        editProfileFragmentLastDonationD.setText(response.body().getData().getClient().getDonationLastDate());
+                        editProfileFragmentTxtPhoneNumber.setText(response.body().getData().getClient().getPhone());
+                        spBloodType.setSelection(response.body().getData().getClient().getBloodType().getId());
+                        spGovernment.setSelection(response.body().getData().getClient().getCity().getGovernorate().getId());
+                        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                int citySelected = response.body ().getData ().getClient ().getCity ().getId ();
-                                cityAdapter = new SpinnerAdapter2 (getActivity ( ));
-                                getData (getClient ( ).getCities (governoratesAdapter.selectedId), cityAdapter, getResources ( ).getString (R.string.city), spCity, citySelected);
+                                int citySelected = response.body().getData().getClient().getCity().getId();
+                                cityAdapter = new SpinnerAdapter2(getActivity());
+                                getData(getClient().getCities(governoratesAdapter.selectedId), cityAdapter, getResources().getString(R.string.city), spCity, citySelected);
                             }
 
                             @Override
@@ -222,7 +239,8 @@ public class EditProfileFragment extends BaseFragment {
 
                             }
                         };
-                        spGovernment.setOnItemSelectedListener (listener);
+                        spGovernment.setOnItemSelectedListener(listener);
+                        //setHeights();
 
                     }
                 } catch (Exception e) {
@@ -232,7 +250,7 @@ public class EditProfileFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
-                Toast.makeText (getActivity(), t.getMessage (), Toast.LENGTH_SHORT).show ( );
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -241,6 +259,6 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.edit_profile_fragment_btn_register)
     public void onClick() {
-        setEditProfileData ();
+        setEditProfileData();
     }
 }

@@ -122,4 +122,7 @@ public interface ApiService {
                                                      @Field("governorates[]") List<Integer> governorates,
                                                      @Field("blood_types[]") List<Integer> bloodTypes);
 
+    @GET("my-favourites")
+    Call<Posts> getFavouritesPosts(@Query("api_token") String apiToken);
+
 }

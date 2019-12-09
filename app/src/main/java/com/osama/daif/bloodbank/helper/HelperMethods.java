@@ -48,8 +48,6 @@ public class HelperMethods {
 
     public static void replaceFragment(FragmentManager getChildFragmentManager, int id, Fragment fragment, Bundle bundle) {
         FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
-//        Bundle args = new Bundle();
-//        args.putInt ("ID", newId);
         fragment.setArguments (bundle);
         transaction.replace(id, fragment);
         transaction.addToBackStack(null);

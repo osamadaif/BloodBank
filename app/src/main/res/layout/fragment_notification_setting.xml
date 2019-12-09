@@ -37,7 +37,7 @@
                 <RelativeLayout
                     android:id="@+id/notification_settings_fragment_rel_bloods_gone"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_150dp"
+                    android:layout_height="@dimen/dim_160dp"
                     android:layout_marginTop="@dimen/dim_16dp"
                     android:background="@drawable/background_edit_text_gray2"
                     android:paddingStart="@dimen/dim_8dp"

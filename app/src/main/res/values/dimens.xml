@@ -24,4 +24,6 @@
     <dimen name="dim_104dp">104dp</dimen>
     <dimen name="dim_150dp">150dp</dimen>
     <dimen name="dim_20sp">20sp</dimen>
+    <dimen name="dim_160dp">160dp</dimen>
+    <dimen name="dim_56dp">56dp</dimen>
 </resources>

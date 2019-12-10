@@ -32,7 +32,7 @@ import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUs
 public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecyclerAdapter.PostsListVH> {
 
     private boolean fav = false;
-    private List<PostsData> postsList = new ArrayList<>();
+    private List<PostsData> postsList = new ArrayList<> ( );
     private Context mContext;
     private Activity activity;
     private String searchString = "";
@@ -52,90 +52,85 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
     @Override
     public PostsListVH onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_rv_posts, viewGroup, false);
-        return new PostsListVH(view);
-
+        View view = LayoutInflater.from (viewGroup.getContext ( ))
+                .inflate (R.layout.item_rv_posts, viewGroup, false);
+        return new PostsListVH (view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final PostsListVH holder, final int position) {
-        final PostsData posts = postsList.get(position);
-        setData(holder, position);
-
+        setData (holder, position);
+        setAction (holder, position);
     }
 
     private void setData(PostsListVH holder, int position) {
-        holder.itemRvPostsTvTitlePost.setText(postsList.get(position).getTitle());
-        Glide.with(mContext).load(postsList.get(position).getThumbnailFullPath()).into(holder.itemRvPostsIvImagePost);
-        if (postsList.get(position).getIsFavourite()) {
-            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_fill);
+        holder.itemRvPostsTvTitlePost.setText (postsList.get (position).getTitle ( ));
+        Glide.with (mContext).load (postsList.get (position).getThumbnailFullPath ( )).into (holder.itemRvPostsIvImagePost);
+        if (postsList.get (position).getIsFavourite ( )) {
+            holder.itemRvPostsIvAddFav.setImageResource (R.drawable.circle_with_heart_fill);
         } else {
-            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);
+            holder.itemRvPostsIvAddFav.setImageResource (R.drawable.circle_with_heart_border);
         }
+//        postsList.get(position).setIsFavourite(postsList.get(position).getIsFavourite());
+    }
 
-        postsList.get(position).setIsFavourite(postsList.get(position).getIsFavourite());
-        holder.itemRvPostsIvAddFav.setOnClickListener(new View.OnClickListener() {
+    private void setAction(PostsListVH holder, int position) {
+        holder.itemRvPostsIvAddFav.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
-                getClient().getPostToggleFavourite(postsList.get(position).getId(), loadUserData(activity).getApiToken()).enqueue(new Callback<Posts>() {
+                getClient ( ).getPostToggleFavourite (postsList.get (position).getId ( ), loadUserData (activity).getApiToken ( )).enqueue (new Callback<Posts> ( ) {
                     @Override
                     public void onResponse(Call<Posts> call, Response<Posts> response) {
 
 
-                        if (postsList.get(position).getIsFavourite()) {
-                            postsList.get(position).setIsFavourite(false);
-                            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_border);
+                        if (postsList.get (position).getIsFavourite ( )) {
+                            postsList.get (position).setIsFavourite (false);
+                            holder.itemRvPostsIvAddFav.setImageResource (R.drawable.circle_with_heart_border);
                         } else {
-                            postsList.get(position).setIsFavourite(true);
-                            holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_fill);
+                            postsList.get (position).setIsFavourite (true);
+                            holder.itemRvPostsIvAddFav.setImageResource (R.drawable.circle_with_heart_fill);
                         }
                         if (fav) {
-                            postsList.remove(position);
+                            postsList.remove (position);
                             changeFav = true;
                         }
-                        notifyDataSetChanged();
+                        notifyDataSetChanged ( );
                     }
 
                     @Override
                     public void onFailure(Call<Posts> call, Throwable t) {
-                        Toast.makeText(activity, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText (activity, t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
                     }
                 });
-
             }
         });
-
-
     }
-
 
     public void setSearchItem(List<PostsData> newList, String searchString) {
         this.searchString = searchString;
-        postsList = new ArrayList<>();
-        postsList.addAll(newList);
-        notifyDataSetChanged();
+        postsList = new ArrayList<> ( );
+        postsList.addAll (newList);
+        notifyDataSetChanged ( );
     }
 
     public void setSearchItem(List<PostsData> newList) {
-        postsList = new ArrayList<>();
-        postsList.addAll(newList);
-        notifyDataSetChanged();
+        postsList = new ArrayList<> ( );
+        postsList.addAll (newList);
+        notifyDataSetChanged ( );
     }
-
 
     @Override
     public int getItemCount() {
-        if (postsList == null || postsList.isEmpty()) {
+        if (postsList == null || postsList.isEmpty ( )) {
             return 0;
         }
-        return postsList.size();
+        return postsList.size ( );
     }
 
     @Override
     public long getItemId(int position) {
-        if (position < postsList.size()) {
-            return postsList.get(position).getId();
+        if (position < postsList.size ( )) {
+            return postsList.get (position).getId ( );
         }
         return RecyclerView.NO_ID;
     }
@@ -151,25 +146,24 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
         private View view;
 
         PostsListVH(View itemView) {
-            super(itemView);
+            super (itemView);
             view = itemView;
-            ButterKnife.bind(this, view);
-            itemView.setOnClickListener(this);
+            ButterKnife.bind (this, view);
+            itemView.setOnClickListener (this);
 
         }
+
         @Override
         public void onClick(View v) {
-            if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                int itemId = getAdapterPosition();
-                mItemClickListener.onItemClickListener(itemId);
+            if (getAdapterPosition ( ) != RecyclerView.NO_POSITION) {
+                int itemId = getAdapterPosition ( );
+                mItemClickListener.onItemClickListener (itemId);
             }
         }
-
     }
 
     public interface itemClickListener {
         void onItemClickListener(int itemId);
-
     }
 
 }

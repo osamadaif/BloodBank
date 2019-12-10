@@ -161,7 +161,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/item_rv_donation_blood_type_txt_hospital_key"
                         android:layout_marginStart="@dimen/dim_72dp"
-                        android:layout_marginEnd="@dimen/dim_4dp"
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:text="@string/city_donation_key"
                         android:textColor="@color/black"
@@ -172,14 +171,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/item_rv_donation_blood_type_txt_hospital_value"
-                        android:layout_marginBottom="@dimen/dim_4dp"
                         android:layout_toEndOf="@id/item_rv_donation_blood_type_txt_city_key"
                         android:text="@string/name_of_hospital_value"
                         android:textColor="@color/black"
-
                         android:textSize="@dimen/dim_18sp" />
                 </RelativeLayout>
-
 
             </LinearLayout>
 

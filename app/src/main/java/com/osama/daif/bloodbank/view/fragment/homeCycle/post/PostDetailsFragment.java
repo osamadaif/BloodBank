@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.osama.daif.bloodbank.adapter.PostsListRecyclerAdapter.changeFav;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 
 public class PostDetailsFragment extends BaseFragment {
@@ -84,10 +85,12 @@ public class PostDetailsFragment extends BaseFragment {
         if (postsData.getIsFavourite()) {
             postsData.setIsFavourite(false);
             fragmentPostDetailsImgFav.setImageResource(R.drawable.ic_favorite_border_red);
+
         } else {
             postsData.setIsFavourite(true);
             fragmentPostDetailsImgFav.setImageResource(R.drawable.ic_favorite_fill_red);
         }
+        changeFav = true;
 
     }
 }

@@ -53,6 +53,7 @@
     <string name="search">search</string>
     <string name="sort_by">sort By</string>
     <string name="USER_DATA_SHARED">USER_DATA</string>
+    <string name="PHONE_USER_DATA_SHARED">PHONE_USER_DATA</string>
     <string name="categories">categories</string>
     <string name="filter">filter</string>
     <string name="remember_me_instance">REMEMBER</string>
@@ -73,4 +74,7 @@
     <string name="save">save</string>
     <string name="test">test</string>
     <string name="notification_setting">Notification setting</string>
+    <string name="exit_app_dialog_msg">Exit from Blood Type?</string>
+    <string name="exit">Exit</string>
+    <string name="cancel">Cancel</string>
 </resources>

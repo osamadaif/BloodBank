@@ -1,13 +1,18 @@
 package com.osama.daif.bloodbank.view.fragment.homeCycle.staticScreen;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.osama.daif.bloodbank.R;
+import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.notification.NotificationSettingFragment;
@@ -18,6 +23,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.SaveData;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
 public class MoreFragment extends BaseFragment {
@@ -87,6 +94,7 @@ public class MoreFragment extends BaseFragment {
 
                 break;
             case R.id.logout_item:
+                showExitAppConfirmationDialog();
                 break;
         }
     }
@@ -101,5 +109,28 @@ public class MoreFragment extends BaseFragment {
         Bundle bundle = new Bundle();
         bundle.putInt (PostsAndFavoritesListFragment.EXTRA_FAV, 22);
         replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new PostsAndFavoritesListFragment(),bundle);
+    }
+
+    private void showExitAppConfirmationDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder (getActivity ());
+        builder.setMessage (R.string.exit_app_dialog_msg);
+        builder.setPositiveButton (R.string.exit, new DialogInterface.OnClickListener ( ) {
+            public void onClick(DialogInterface dialog, int id) {
+                String phone = loadUserData(getActivity()).getClient().getPhone();
+                SaveData (getActivity ( ), getResources ( ).getString (R.string.PHONE_USER_DATA_SHARED), phone);
+                SaveData (getActivity ( ), getResources ( ).getString (R.string.USER_DATA_SHARED), null);
+                getActivity().finish();
+            }
+        });
+        builder.setNegativeButton (R.string.cancel, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss ( );
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create ( );
+        alertDialog.show ( );
     }
 }

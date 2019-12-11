@@ -40,10 +40,12 @@ public class SplashFragment extends BaseFragment {
             @Override
             public void run() {
                 if (loadUserData (getActivity ( )) != null) {
-                    if (LoadBoolean (getActivity ( ), getResources ( ).getString (R.string.remember_me_instance)) == true) {
+                    if (LoadBoolean (getActivity ( ), getResources ( ).getString (R.string.remember_me_instance))) {
                         startActivity (new Intent (baseActivity.getApplicationContext ( ), HomeCycleActivity.class));
+                        getActivity().finish();
                     }else {
                         replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.fragment_splash_container, new SliderFragment ( ));
+
                     }
                 } else {
                     replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.fragment_splash_container, new SliderFragment ( ));

@@ -79,7 +79,13 @@ public class DonationListFragment extends Fragment {
         fab = getActivity ( ).findViewById (R.id.home_container_fragment_f_a_btn_add);
         initRecyclerView ( );
         apiToken = loadUserData (getActivity ( )).getApiToken ( );
-        bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
+
+        if (bloodTypeAdapter == null) {
+            bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
+            getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), fragmentHomeDonationSpSpinnerBloodType);
+        } else {
+            fragmentHomeDonationSpSpinnerBloodType.setAdapter(bloodTypeAdapter);
+        }
         AdapterView.OnItemSelectedListener bloodTypeListener = new AdapterView.OnItemSelectedListener ( ) {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,8 +99,13 @@ public class DonationListFragment extends Fragment {
 
             }
         };
-        getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), fragmentHomeDonationSpSpinnerBloodType);
+//        getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), fragmentHomeDonationSpSpinnerBloodType);
 
+        if (governoratesAdapter == null) {
+            governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
+        } else {
+            fragmentHomeDonationSpSpinnerGovernment.setAdapter(governoratesAdapter);
+        }
         governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
         AdapterView.OnItemSelectedListener governoratesListener = new AdapterView.OnItemSelectedListener ( ) {
             @Override

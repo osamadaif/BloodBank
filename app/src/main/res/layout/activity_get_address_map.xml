@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.GetAddressMapActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <include
+            android:id="@+id/toolbar_map"
+            layout="@layout/toolbar"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
+    <Button
+        android:id="@+id/activity_address_map_btn_choose_location"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dim_32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dim_24dp"
+        android:paddingStart="@dimen/dim_64dp"
+        android:paddingEnd="@dimen/dim_64dp"
+        android:background="@drawable/background_button_red"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/choose_location"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

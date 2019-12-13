@@ -71,7 +71,7 @@ public class EditProfileFragment extends BaseFragment {
 
     private DatePickerDialog datePickerDialog;
 
-    String apiToken;
+    private String apiToken;
 
     private int year;
     private int month;
@@ -104,9 +104,18 @@ public class EditProfileFragment extends BaseFragment {
 
         apiToken = loadUserData(getActivity()).getApiToken();
 
+        if (bloodTypeAdapter == null) {
+            bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
+            getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), spBloodType);
+        } else {
+            spBloodType.setAdapter(bloodTypeAdapter);
+        }
 
-        bloodTypeAdapter = new SpinnerAdapter2(getActivity());
-        getData(getClient().getBloodTypes(), bloodTypeAdapter, getResources().getString(R.string.blood_type), spBloodType);
+        if (governoratesAdapter == null) {
+            governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
+        } else {
+            spGovernment.setAdapter(governoratesAdapter);
+        }
 
         governoratesAdapter = new SpinnerAdapter2(getActivity());
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
@@ -130,15 +139,6 @@ public class EditProfileFragment extends BaseFragment {
         return view;
     }
 
-    void setHeights() {
-        ViewGroup.LayoutParams params = editProfileFragmentLayBaseLayout.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-        editProfileFragmentLayBaseLayout.setLayoutParams(params);
-
-        ViewGroup.LayoutParams params2 = editProfileFragmentSvBaseScrollView.getLayoutParams();
-        params2.height = ViewGroup.LayoutParams.MATCH_PARENT;
-        editProfileFragmentSvBaseScrollView.setLayoutParams(params2);
-    }
 
     @Override
     public void onBack() {
@@ -214,6 +214,26 @@ public class EditProfileFragment extends BaseFragment {
     }
 
     private void getProfileData() {
+//        editProfileFragmentTxtUserName.setText(loadUserData(getActivity()).getClient ().getName ());
+//        editProfileFragmentTxtEmail.setText(loadUserData(getActivity()).getClient ().getEmail ());
+//        editProfileFragmentBirthday.setText(loadUserData(getActivity()).getClient ().getBirthDate ());
+//        editProfileFragmentLastDonationD.setText(loadUserData(getActivity()).getClient ().getDonationLastDate ());
+//        editProfileFragmentTxtPhoneNumber.setText(loadUserData(getActivity()).getClient ().getPhone ());
+//        spBloodType.setSelection(loadUserData(getActivity()).getClient ().getBloodType ().getId ());
+//        spGovernment.setSelection(loadUserData(getActivity()).getClient ().getCity ().getGovernorate ().getId ());
+//        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                int citySelected = loadUserData(getActivity()).getClient ().getCity ().getId ();
+//                cityAdapter = new SpinnerAdapter2(getActivity());
+//                getData(getClient().getCities(loadUserData(getActivity()).getClient ().getCity ().getGovernorate ().getId ()), cityAdapter, getResources().getString(R.string.city), spCity, citySelected);
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        };
+//        spGovernment.setOnItemSelectedListener(listener);
+
         getClient().getProfile(apiToken).enqueue(new Callback<Register>() {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
@@ -224,30 +244,32 @@ public class EditProfileFragment extends BaseFragment {
                         editProfileFragmentBirthday.setText(response.body().getData().getClient().getBirthDate());
                         editProfileFragmentLastDonationD.setText(response.body().getData().getClient().getDonationLastDate());
                         editProfileFragmentTxtPhoneNumber.setText(response.body().getData().getClient().getPhone());
-                        spBloodType.setSelection(response.body().getData().getClient().getBloodType().getId());
-                        spGovernment.setSelection(response.body().getData().getClient().getCity().getGovernorate().getId());
+                        if (spBloodType.getSelectedItemPosition () == 0 || spBloodType != null){
+                            spBloodType.setSelection(response.body().getData().getClient().getBloodType().getId());
+                        }
+                        if (spGovernment.getSelectedItemPosition () == 0){
+                            spGovernment.setSelection(response.body().getData().getClient().getCity().getGovernorate().getId());
+                        }
                         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 int citySelected = response.body().getData().getClient().getCity().getId();
-                                cityAdapter = new SpinnerAdapter2(getActivity());
-                                getData(getClient().getCities(governoratesAdapter.selectedId), cityAdapter, getResources().getString(R.string.city), spCity, citySelected);
-                            }
 
+                                if (citySelected != 0 || cityAdapter == null){
+                                    cityAdapter = new SpinnerAdapter2(getActivity());
+                                    getData(getClient().getCities(response.body().getData().getClient().getCity().getGovernorate().getId()), cityAdapter, getResources().getString(R.string.city), spCity, citySelected);
+                                }
+                            }
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
-
                             }
                         };
                         spGovernment.setOnItemSelectedListener(listener);
-                        //setHeights();
-
                     }
                 } catch (Exception e) {
 
                 }
             }
-
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -255,7 +277,6 @@ public class EditProfileFragment extends BaseFragment {
         });
 
     }
-
 
     @OnClick(R.id.edit_profile_fragment_btn_register)
     public void onClick() {

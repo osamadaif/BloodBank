@@ -16,15 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".view.activity.GetAddressMapActivity"></activity>
+
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCEh8XUsrTRVkKU0dWlyva9SR6H6YRx8ao"/>
+            android:value="AIzaSyCEh8XUsrTRVkKU0dWlyva9SR6H6YRx8ao" />
+
         <activity
             android:name=".view.activity.HomeCycleActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".view.activity.UserCycleActivity" />
         <activity
             android:name=".view.activity.SplashCycleActivity"
@@ -35,9 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.BaseActivity"></activity>
+        <activity android:name=".view.activity.BaseActivity" />
     </application>
 
 </manifest>
-
-    <!--    android:windowSoftInputMode="stateHidden"-->

@@ -106,7 +106,7 @@ public class DonationListFragment extends Fragment {
         } else {
             fragmentHomeDonationSpSpinnerGovernment.setAdapter(governoratesAdapter);
         }
-        governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
+//        governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
         AdapterView.OnItemSelectedListener governoratesListener = new AdapterView.OnItemSelectedListener ( ) {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

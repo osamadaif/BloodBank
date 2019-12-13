@@ -1,5 +1,6 @@
 package com.osama.daif.bloodbank.helper;
 
+import android.app.Activity;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
@@ -9,6 +10,8 @@ import com.osama.daif.bloodbank.data.model.city.GeneralResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 
 public class GeneralRequest {
 

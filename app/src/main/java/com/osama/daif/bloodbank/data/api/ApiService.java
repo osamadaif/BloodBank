@@ -125,4 +125,20 @@ public interface ApiService {
     @GET("my-favourites")
     Call<Posts> getFavouritesPosts(@Query("api_token") String apiToken);
 
+    @POST("donation-request/create")
+    @FormUrlEncoded
+    Call<Donation> createNewDonation(@Field("api_token") String apiToken,
+                                     @Field("patient_name") String patient_name,
+                                     @Field("patient_age") String patient_age,
+                                     @Field("blood_type_id") int blood_type_id,
+                                     @Field("bags_num") String bags_num,
+                                     @Field("hospital_name") String hospital_name,
+                                     @Field("hospital_address") String hospital_address,
+                                     @Field("city_id") int city_id,
+                                     @Field("phone") String phone,
+                                     @Field("notes") String notes,
+                                     @Field("latitude") double latitude,
+                                     @Field("longitude") double longitude
+    );
+
 }

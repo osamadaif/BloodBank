@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dim_104dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/name_donation_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_name_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/age_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_age_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/blood_type_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_blood_type_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/number_of_bags_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_number_of_bags_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/hospital_donation_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_hospital_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/address_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_address_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:text="@string/phone_key"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+                <TextView
+                    android:id="@+id/fragment_donation_details_tv_phone_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="viewStart"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_4dp"
+                    android:paddingEnd="@dimen/dim_4dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_22sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/fragment_donation_details_tv_notes_value"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_104dp"
+                android:layout_margin="@dimen/dim_16dp"
+                android:textAlignment="viewStart"
+                android:background="@drawable/background_edit_text_gray3"
+                android:padding="@dimen/dim_16dp"
+                android:textSize="@dimen/dim_22sp"
+                android:textColor="@color/blue" />
+
+            <fragment
+                android:id="@+id/fragment_donation_details_map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:layout_height="@dimen/dim_150dp" />
+
+            <Button
+                android:id="@+id/fragment_donation_details_btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dim_16dp"
+                android:background="@drawable/background_button_red"
+                android:fontFamily="sans-serif-medium"
+                android:paddingStart="@dimen/dim_64dp"
+                android:paddingEnd="@dimen/dim_64dp"
+                android:text="@string/call"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/fragment_donation_details_progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

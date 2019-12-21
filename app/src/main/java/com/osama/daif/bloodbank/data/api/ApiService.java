@@ -1,12 +1,17 @@
 package com.osama.daif.bloodbank.data.api;
 
 import com.osama.daif.bloodbank.data.model.city.GeneralResponse;
+import com.osama.daif.bloodbank.data.model.contactUs.ContactUs;
 import com.osama.daif.bloodbank.data.model.donation.Donation;
+import com.osama.daif.bloodbank.data.model.donationDetails.DonationDetails;
 import com.osama.daif.bloodbank.data.model.login.Login;
+import com.osama.daif.bloodbank.data.model.notification.Notification;
+import com.osama.daif.bloodbank.data.model.notificationCount.NotificationCount;
 import com.osama.daif.bloodbank.data.model.notificationSetting.NotificationSetting;
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
 import com.osama.daif.bloodbank.data.model.register.Register;
+import com.osama.daif.bloodbank.data.model.settings.Settings;
 
 import java.util.List;
 
@@ -141,4 +146,23 @@ public interface ApiService {
                                      @Field("longitude") double longitude
     );
 
+    @GET("notifications")
+    Call<Notification> getNotifications(@Query("api_token") String apiToken,
+                                        @Query("page") int page);
+
+    @GET("donation-request")
+    Call<DonationDetails> getDonationDetails(@Query("api_token") String apiToken,
+                                             @Query("donation_id") int donation_id);
+
+    @GET("notifications-count")
+    Call<NotificationCount> getNotificationsCount(@Query("api_token") String apiToken);
+
+    @GET("settings")
+    Call<Settings> getSetting(@Query("api_token") String apiToken);
+
+    @POST("contact")
+    @FormUrlEncoded
+    Call<ContactUs> setContactUsMessage(@Field("api_token") String apiToken,
+                                        @Field("title") String title,
+                                        @Field("message") String message);
 }

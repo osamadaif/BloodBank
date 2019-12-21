@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.osama.daif.bloodbank.R;
@@ -23,6 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
+import static com.osama.daif.bloodbank.helper.HelperMethods.setSystemBarColor;
 
 public class HomeContainerFragment extends BaseFragment {
 
@@ -35,8 +38,9 @@ public class HomeContainerFragment extends BaseFragment {
     private long backPressedTime;
     private Toast backToast;
 
+
     private Unbinder unbinder = null;
-    HomeCycleActivity homeCycleActivity;
+    private HomeCycleActivity homeCycleActivity;
     private ViewPagerWithFragmentAdapter adapter = null;
 
     public HomeContainerFragment() {
@@ -53,13 +57,17 @@ public class HomeContainerFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_screen, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setSystemBarColor (getActivity ());
         // Inflate the layout for this fragment
         initFragment();
-
+        homeCycleActivity = (HomeCycleActivity) getActivity();
+        assert homeCycleActivity != null;
+        homeCycleActivity.appbarVisibility(View.GONE);
+//        homeCycleActivity.editToolbarTxtSup(R.string.app_name);
+        homeCycleActivity.bottomNavigationVisibility(View.VISIBLE);
+        homeCycleActivity.setBehavior(null);
         setupViewPager(tabViewPager);
-
         tabLayout.setupWithViewPager(tabViewPager);
-
         if (tabLayout.getSelectedTabPosition() == 0) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,14 +123,19 @@ public class HomeContainerFragment extends BaseFragment {
 
             }
         });
-        homeCycleActivity = (HomeCycleActivity) getActivity();
-        homeCycleActivity.appbarVisibility(View.VISIBLE);
-        homeCycleActivity.editToolbarTxtSup(R.string.app_name);
-        homeCycleActivity.bottomNavigationVisibility(View.VISIBLE);
+
 
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        homeCycleActivity.appbarVisibility(View.GONE);
+        super.onResume ( );
+
+    }
+
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerWithFragmentAdapter(getChildFragmentManager());
@@ -133,15 +146,15 @@ public class HomeContainerFragment extends BaseFragment {
         viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void onBack() {
-        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-            backToast.cancel();
-            getActivity().finish();
-        } else {
-            backToast = Toast.makeText(getActivity(), getResources().getString(R.string.Press_back_again), Toast.LENGTH_SHORT);
-            backToast.show();
-        }
-        backPressedTime = System.currentTimeMillis();
-    }
+//    @Override
+//    public void onBack() {
+//        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+//            backToast.cancel();
+//            getActivity().finish();
+//        } else {
+//            backToast = Toast.makeText(getActivity(), getResources().getString(R.string.Press_back_again), Toast.LENGTH_SHORT);
+//            backToast.show();
+//        }
+//        backPressedTime = System.currentTimeMillis();
+//    }
 }

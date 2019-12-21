@@ -11,11 +11,14 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
+import com.osama.daif.bloodbank.helper.HelperMethods;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +31,7 @@ import retrofit2.Response;
 import static com.osama.daif.bloodbank.adapter.PostsListRecyclerAdapter.changeFav;
 import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
+import static com.osama.daif.bloodbank.helper.HelperMethods.setSystemBarTransparent;
 
 public class PostDetailsFragment extends BaseFragment {
 
@@ -60,10 +64,12 @@ public class PostDetailsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_details, container, false);
         unbinder = ButterKnife.bind(this, view);
+        setSystemBarTransparent (getActivity ());
         homeCycleActivity = (HomeCycleActivity) getActivity();
         assert homeCycleActivity != null;
         homeCycleActivity.appbarVisibility(View.GONE);
         homeCycleActivity.bottomNavigationVisibility(View.GONE);
+        homeCycleActivity.setBehavior(null);
         initFragment();
         apiToken = loadUserData(getActivity()).getApiToken();
         getPostDetails();
@@ -74,6 +80,7 @@ public class PostDetailsFragment extends BaseFragment {
         fragmentPostDetailsTxtTitle.setText(postsData.getTitle());
         fragmentPostDetailsTxtContent.setText(postsData.getContent());
         Glide.with(getActivity()).load(postsData.getThumbnailFullPath()).into(fragmentPostDetailsImgPostImage);
+//        Picasso.get().load((postsData.getThumbnailFullPath())).into(fragmentPostDetailsImgPostImage);
         if (postsData.getIsFavourite()) {
             fragmentPostDetailsImgFav.setImageResource(R.drawable.ic_favorite_fill_red);
         } else {
@@ -111,7 +118,12 @@ public class PostDetailsFragment extends BaseFragment {
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView ( );
+        unbinder.unbind ();
+    }
+
 }

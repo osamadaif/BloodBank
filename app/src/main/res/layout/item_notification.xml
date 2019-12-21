@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    app:cardCornerRadius="@dimen/dim_20dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:id="@+id/item_notification_lay_lin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dim_8dp">
+
+        <ImageView
+            android:id="@+id/item_notification_iv_notification_icon"
+            android:layout_width="@dimen/dim_40dp"
+            android:layout_height="@dimen/dim_40dp"
+            android:layout_gravity="start"
+            android:src="@drawable/ic_notifications_none_red" />
+
+        <TextView
+            android:id="@+id/item_notification_tv_notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/notification_for_your_request"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/dim_16sp" />
+
+        <View
+            android:layout_width="@dimen/dim_30dp"
+            android:layout_height="match_parent" />
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="@dimen/dim_24dp"-->
+        <!--            android:layout_height="@dimen/dim_24dp"-->
+        <!--            android:src="@drawable/ic_access_time_orange"-->
+        <!--            android:padding="@dimen/dim_2dp"-->
+        <!--            android:layout_gravity="center"/>-->
+        <TextView
+            android:id="@+id/item_notification_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_access_time_orange"
+            android:gravity="center"
+            android:textColor="@color/orange" />
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

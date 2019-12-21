@@ -26,9 +26,10 @@ public class BlankFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_blank, container, false);
         // Inflate the layout for this fragment
         initFragment();
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        return view;
     }
 
     @Override

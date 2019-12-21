@@ -23,6 +23,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/appbar_map"
         tools:context=".MapsActivity" />
     <Button
         android:id="@+id/activity_address_map_btn_choose_location"

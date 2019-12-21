@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
+import com.osama.daif.bloodbank.view.fragment.homeCycle.notification.NotificationFragment;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.notification.NotificationSettingFragment;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.post.PostsAndFavoritesListFragment;
 
@@ -26,6 +28,7 @@ import butterknife.Unbinder;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.SaveData;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
+import static com.osama.daif.bloodbank.helper.HelperMethods.setSystemBarColor;
 
 public class MoreFragment extends BaseFragment {
 
@@ -63,12 +66,13 @@ public class MoreFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_more, container, false);
         unbinder = ButterKnife.bind(this, view);
-
         initFragment();
         homeCycleActivity = (HomeCycleActivity) getActivity();
         homeCycleActivity.editToolbarTxtSup(R.string.more);
+        homeCycleActivity.appbarVisibility (View.VISIBLE);
+        homeCycleActivity.setBackBtnVisibility (View.GONE);
+        homeCycleActivity.setBehavior(new AppBarLayout.ScrollingViewBehavior());
         homeCycleActivity.bottomNavigationVisibility(View.VISIBLE);
-
         return view;
     }
 
@@ -85,24 +89,22 @@ public class MoreFragment extends BaseFragment {
                 goToFavourite();
                 break;
             case R.id.contact_us_item:
+                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new ContactUsFragment());
+
                 break;
             case R.id.about_application_item:
+                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new AboutAppFragment());
+
                 break;
             case R.id.rate_application_item:
                 break;
             case R.id.notification_settings_item:
-
+                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new NotificationSettingFragment());
                 break;
             case R.id.logout_item:
                 showExitAppConfirmationDialog();
                 break;
         }
-    }
-
-    @OnClick(R.id.notification_settings_txt)
-    public void onClick() {
-        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new NotificationSettingFragment());
-
     }
 
     public void goToFavourite(){

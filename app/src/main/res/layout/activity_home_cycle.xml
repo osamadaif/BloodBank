@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.HomeCycleActivity">
@@ -10,6 +11,7 @@
         android:id="@+id/appbar_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:elevation="0dp">
 
         <include
@@ -22,8 +24,7 @@
     <FrameLayout
         android:id="@+id/home_container_fr_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/home_cycle_bottom_navigation"
@@ -31,9 +32,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
-        app:itemIconSize="@dimen/dim_30dp"
+        android:theme="@style/Theme.MaterialComponents.Light.Bridge"
+        app:labelVisibilityMode="unlabeled"
+        app:itemIconSize="@dimen/dim_38dp"
         app:itemIconTint="@color/white2"
-        app:itemTextColor="@color/white2"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/bottom_navigation" />
 

@@ -77,8 +77,9 @@ public class DonationListFragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_home_donation, container, false);
         unbinder = ButterKnife.bind (this, view);
         fab = getActivity ( ).findViewById (R.id.home_container_fragment_f_a_btn_add);
-        initRecyclerView ( );
         apiToken = loadUserData (getActivity ( )).getApiToken ( );
+        initRecyclerView ( );
+
 
         if (bloodTypeAdapter == null) {
             bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
@@ -211,5 +212,12 @@ public class DonationListFragment extends Fragment {
         });
 
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView ( );
+        unbinder.unbind ();
+    }
+
 
 }

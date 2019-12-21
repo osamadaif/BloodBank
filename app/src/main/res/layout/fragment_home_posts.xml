@@ -59,10 +59,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fragment_home_posts_layout"
-        android:layout_margin="@dimen/dim_12dp"
+        android:padding="@dimen/dim_12dp"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/fragment_home_posts_fragment_progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminate="true" />
 
 
 </RelativeLayout>

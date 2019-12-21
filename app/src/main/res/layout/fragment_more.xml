@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-<!--        <include-->
-<!--            android:id="@+id/home_toolbar"-->
-<!--            layout="@layout/toolbar" />-->
-
-
     <LinearLayout
         android:id="@+id/favourite_item"
         android:layout_width="match_parent"
@@ -21,6 +16,7 @@
         <ImageView
             android:layout_width="@dimen/dim_36dp"
             android:layout_height="@dimen/dim_36dp"
+            android:padding="@dimen/dim_4dp"
             android:src="@drawable/ic_favorite_fill_red" />
 
         <TextView
@@ -35,9 +31,10 @@
 
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:layout_marginStart="@dimen/dim_16dp"
         android:layout_marginEnd="@dimen/dim_16dp"
         android:background="@color/gray" />
@@ -52,6 +49,7 @@
         <ImageView
             android:layout_width="@dimen/dim_36dp"
             android:layout_height="@dimen/dim_36dp"
+            android:padding="@dimen/dim_4dp"
             android:src="@drawable/ic_mail_outline_red" />
 
         <TextView
@@ -69,7 +67,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:layout_marginStart="@dimen/dim_16dp"
         android:layout_marginEnd="@dimen/dim_16dp"
         android:background="@color/gray" />
@@ -84,7 +82,8 @@
         <ImageView
             android:layout_width="@dimen/dim_36dp"
             android:layout_height="@dimen/dim_36dp"
-            android:src="@drawable/ic_mail_outline_red" />
+            android:padding="@dimen/dim_4dp"
+            android:src="@drawable/ic_lightbulb_regular" />
 
         <TextView
             android:layout_width="match_parent"
@@ -101,7 +100,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:layout_marginStart="@dimen/dim_16dp"
         android:layout_marginEnd="@dimen/dim_16dp"
         android:background="@color/gray" />
@@ -116,6 +115,7 @@
         <ImageView
             android:layout_width="@dimen/dim_36dp"
             android:layout_height="@dimen/dim_36dp"
+            android:padding="@dimen/dim_4dp"
             android:src="@drawable/ic_star_red" />
 
         <TextView
@@ -133,7 +133,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:layout_marginStart="@dimen/dim_16dp"
         android:layout_marginEnd="@dimen/dim_16dp"
         android:background="@color/gray" />
@@ -148,6 +148,7 @@
         <ImageView
             android:layout_width="@dimen/dim_36dp"
             android:layout_height="@dimen/dim_36dp"
+            android:padding="@dimen/dim_4dp"
             android:src="@drawable/ic_settings_red" />
 
         <TextView
@@ -166,7 +167,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height= "2dp"
+        android:layout_height="2dp"
         android:layout_marginStart="@dimen/dim_16dp"
         android:layout_marginEnd="@dimen/dim_16dp"
         android:background="@color/gray" />
@@ -181,6 +182,7 @@
         <ImageView
             android:layout_width="@dimen/dim_36dp"
             android:layout_height="@dimen/dim_36dp"
+            android:padding="@dimen/dim_4dp"
             android:src="@drawable/ic_exit_from_app_red" />
 
         <TextView

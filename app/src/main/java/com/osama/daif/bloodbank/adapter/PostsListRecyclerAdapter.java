@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
     private void setData(PostsListVH holder, int position) {
         holder.itemRvPostsTvTitlePost.setText(postsList.get(position).getTitle());
         Glide.with(mContext).load(postsList.get(position).getThumbnailFullPath()).into(holder.itemRvPostsIvImagePost);
+//        Picasso.get().load(postsList.get(position).getThumbnailFullPath()).into(holder.itemRvPostsIvImagePost);
         if (postsList.get(position).getIsFavourite()) {
             holder.itemRvPostsIvAddFav.setImageResource(R.drawable.circle_with_heart_fill);
         } else {
@@ -103,19 +105,6 @@ public class PostsListRecyclerAdapter extends RecyclerView.Adapter<PostsListRecy
                 });
             }
         });
-    }
-
-    public void setSearchItem(List<PostsData> newList, String searchString) {
-        this.searchString = searchString;
-        postsList = new ArrayList<>();
-        postsList.addAll(newList);
-        notifyDataSetChanged();
-    }
-
-    public void setSearchItem(List<PostsData> newList) {
-        postsList = new ArrayList<>();
-        postsList.addAll(newList);
-        notifyDataSetChanged();
     }
 
     @Override

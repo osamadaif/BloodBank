@@ -87,50 +87,49 @@ public class GetAddressMapActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_address_map);
-        ButterKnife.bind(this);
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        geocoder = new Geocoder(GetAddressMapActivity.this);
-        toolbar = findViewById(R.id.toolbar);
-        appbar.setVisibility(View.VISIBLE);
-        toolbarBackBtn.setVisibility(View.GONE);
-        setTitle("");
-        toolbarTxtSup.setText(getString(R.string.Select_address));
-        setSupportActionBar(toolbar);
-        getLocationPermission();
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_get_address_map);
+        ButterKnife.bind (this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient (this);
+        geocoder = new Geocoder (GetAddressMapActivity.this);
+        toolbar = findViewById (R.id.toolbar);
+        appbar.setVisibility (View.VISIBLE);
+        toolbarBackBtn.setVisibility (View.GONE);
+        setTitle ("");
+        toolbarTxtSup.setText (getString (R.string.Select_address));
+        setSupportActionBar (toolbar);
+        getLocationPermission ( );
 
     }
 
     private void getLocationPermission() {
-        Log.d(TAG, "getLocationPermission: getting location permissions");
+        Log.d (TAG, "getLocationPermission: getting location permissions");
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission (this.getApplicationContext ( ),
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+            if (ContextCompat.checkSelfPermission (this.getApplicationContext ( ),
                     COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true;
-                initMap();
+                initMap ( );
             } else {
-                ActivityCompat.requestPermissions(this,
+                ActivityCompat.requestPermissions (this,
                         permissions,
                         LOCATION_PERMISSION_REQUEST_CODE);
             }
         } else {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions (this,
                     permissions,
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
     private void initMap() {
-        Log.d(TAG, "initMap: initializing map");
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-
+        Log.d (TAG, "initMap: initializing map");
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager ( ).findFragmentById (R.id.map);
         assert mapFragment != null;
-        mapFragment.getMapAsync(GetAddressMapActivity.this);
+        mapFragment.getMapAsync (GetAddressMapActivity.this);
     }
 
     @Override
@@ -138,50 +137,49 @@ public class GetAddressMapActivity extends AppCompatActivity implements OnMapRea
 
 
 //        Toast.makeText (this, "Map Is Ready", Toast.LENGTH_SHORT).show ( );
-        Log.d(TAG, "onMapReady: map is ready");
+        Log.d (TAG, "onMapReady: map is ready");
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
-        new Timer().schedule(new TimerTask() {
+        mMap.setMyLocationEnabled (true);
+        //            mMap.getUiSettings ( ).setMyLocationButtonEnabled (false);
+
+        new Timer ( ).schedule (new TimerTask ( ) {
             @Override
             public void run() {
                 if (mLocationPermissionGranted) {
-
-                    getDeviceLocation();
-//            mMap.getUiSettings ( ).setMyLocationButtonEnabled (false);
-
+                    getDeviceLocation ( );
                 }
             }
         }, 1500);
 
 
-        mMap.setOnMapClickListener(point -> {
+        mMap.setOnMapClickListener (point -> {
             addressLt = point.latitude;
             addressLn = point.longitude;
 
             addressLat = addressLt;
             addressLan = addressLn;
             try {
-                List<Address> addresses = geocoder.getFromLocation(addressLt, addressLn, 1);
-                addressName = addresses.get(0).getAddressLine(0);
-                hospitalFirstName = addresses.get(0).getAdminArea();
+                List<Address> addresses = geocoder.getFromLocation (addressLt, addressLn, 1);
+                addressName = addresses.get (0).getAddressLine (0);
+                hospitalFirstName = addresses.get (0).getFeatureName ( );
                 hospitalName = hospitalFirstName;
                 hospitalAddress = addressName;
-                Toast.makeText(GetAddressMapActivity.this, addressName, Toast.LENGTH_LONG).show();
+                Toast.makeText (GetAddressMapActivity.this, hospitalAddress, Toast.LENGTH_LONG).show ( );
 
             } catch (IOException e) {
-                e.printStackTrace();
+                e.printStackTrace ( );
             }
 
             //remove previously placed Marker
             if (marker != null) {
-                marker.remove();
+                marker.remove ( );
             }
             //place marker where user just clicked
-            marker = mMap.addMarker(new MarkerOptions().position(point).title("Address")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            marker = mMap.addMarker (new MarkerOptions ( ).position (point).title (getResources ().getString(R.string.address_marker))
+                    .icon (BitmapDescriptorFactory.defaultMarker (BitmapDescriptorFactory.HUE_RED)));
         });
 
-        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+        mMap.setOnMarkerDragListener (new GoogleMap.OnMarkerDragListener ( ) {
             @Override
             public void onMarkerDragStart(Marker marker) {
 
@@ -194,49 +192,50 @@ public class GetAddressMapActivity extends AppCompatActivity implements OnMapRea
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                moveCamera(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude)
+                moveCamera (new LatLng (marker.getPosition ( ).latitude, marker.getPosition ( ).longitude)
                 );
             }
         });
     }
 
     private void getDeviceLocation() {
-        Log.d(TAG, "getDeviceLocation: getting the devices current location");
+        Log.d (TAG, "getDeviceLocation: getting the devices current location");
 
         try {
             if (mLocationPermissionGranted) {
-                final Task<Location> location = mFusedLocationProviderClient.getLastLocation();
+                final Task<Location> location = mFusedLocationProviderClient.getLastLocation ( );
 
-                location.addOnCompleteListener(task -> {
-                    Location result = task.getResult();
-                    boolean successful = task.isSuccessful();
+                location.addOnCompleteListener (task -> {
+                    Location result = task.getResult ( );
+                    boolean successful = task.isSuccessful ( );
                     if (successful && result != null) {
-                        Log.d(TAG, "onComplete: found location");
-                        Location currentLocation = (Location) task.getResult();
-                        moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())
+                        Log.d (TAG, "onComplete: found location");
+                        Location currentLocation = (Location) task.getResult ( );
+                        assert currentLocation != null;
+                        moveCamera (new LatLng (currentLocation.getLatitude ( ), currentLocation.getLongitude ( ))
                         );
 
                     } else {
-                        Log.d(TAG, "onComplete: current location is null");
-                        Toast.makeText(GetAddressMapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                        Log.d (TAG, "onComplete: current location is null");
+                        Toast.makeText (GetAddressMapActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show ( );
                     }
                 });
 
             }
         } catch (SecurityException e) {
-            Log.d(TAG, "getDeviceLocation: SecurityException:" + e.getMessage());
+            Log.d (TAG, "getDeviceLocation: SecurityException:" + e.getMessage ( ));
         }
     }
 
     private void moveCamera(LatLng latLng) {
-        Log.d(TAG, "moveCamera: moving the camera to: lat:" + latLng.latitude + ", lng: " + latLng.longitude);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, GetAddressMapActivity.DEFAULT_ZOOM));
-        mMap.clear();
+        Log.d (TAG, "moveCamera: moving the camera to: lat:" + latLng.latitude + ", lng: " + latLng.longitude);
+        mMap.animateCamera (CameraUpdateFactory.newLatLngZoom (latLng, GetAddressMapActivity.DEFAULT_ZOOM));
+        mMap.clear ( );
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        Log.d(TAG, "onRequestPermissionsResult: called.");
+        Log.d (TAG, "onRequestPermissionsResult: called.");
         mLocationPermissionGranted = false;
 
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
@@ -244,21 +243,20 @@ public class GetAddressMapActivity extends AppCompatActivity implements OnMapRea
                 for (int i = 0; i < grantResults.length; i++) {
                     if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                         mLocationPermissionGranted = false;
-                        Log.d(TAG, "onRequestPermissionsResult: permission failed");
+                        Log.d (TAG, "onRequestPermissionsResult: permission failed");
                         return;
                     }
                 }
-                Log.d(TAG, "onRequestPermissionsResult: permission granted");
+                Log.d (TAG, "onRequestPermissionsResult: permission granted");
                 mLocationPermissionGranted = true;
-                initMap();
+                initMap ( );
             }
         }
     }
 
-
     @OnClick(R.id.activity_address_map_btn_choose_location)
     public void onClick() {
-        finish();
+        finish ( );
 
     }
 }

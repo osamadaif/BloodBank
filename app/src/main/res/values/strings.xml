@@ -1,21 +1,22 @@
 <resources>
     <string name="app_name">Blood Bank</string>
-    <string name="google_maps_api_key">AIzaSyCEh8XUsrTRVkKU0dWlyva9SR6H6YRx8ao</string>
+    <string name="google_maps_api_key" translatable="false">AIzaSyCEh8XUsrTRVkKU0dWlyva9SR6H6YRx8ao</string>
     <string name="phone">phone</string>
     <string name="phone_key">phone:</string>
     <string name="password">password</string>
     <string name="remember_me">Remember me</string>
     <string name="forget_password">forget password?</string>
     <string name="enter">Enter</string>
-    <string name="creat_new_account">Creat New Account</string>
-    <string name="blood_bank">بنك الدم</string>
+    <string name="creat_new_account">Create New Account</string>
+    <string name="blood_bank" translatable="false">بنك الدم</string>
     <string name="donation">Donation</string>
+    <string name="donations_requests">Donation</string>
     <string name="posts">Posts</string>
     <string name="Press_back_again">Press back again to exit</string>
     <string name="Select_address">Select address</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="create_new_account">Create New Account</string>
     <string name="user_name">name</string>
     <string name="email">email</string>
@@ -27,9 +28,9 @@
     <string name="city">city</string>
     <string name="confirm_password">confirm password</string>
     <string name="register">register</string>
-    <string name="test1">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 1</string>
-    <string name="test2">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 2</string>
-    <string name="test3"> دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 3</string>
+    <string name="test1" translatable="false">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 1</string>
+    <string name="test2" translatable="false">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 2</string>
+    <string name="test3" translatable="false"> دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 3</string>
     <string name="send">send</string>
     <string name="code">code</string>
     <string name="new_password">new password</string>
@@ -40,12 +41,12 @@
     <string name="call">call</string>
     <string name="notification">notification</string>
     <string name="more">more</string>
-    <string name="add_to_favorite">add to favorite</string>
+    <string name="add_to_favorite" translatable="false">add to favorite</string>
     <string name="title">title</string>
-    <string name="background_blood_type">background blood type</string>
+    <string name="background_blood_type" translatable="false">background blood type</string>
     <string name="blood_type_test">B+</string>
-    <string name="name_donation_key">name:</string>
-    <string name="name_of_the_user_value">name of the user</string>
+    <string name="name_donation_key" >name:</string>
+    <string name="name_of_the_user_value" translatable="false">name of the user</string>
     <string name="hospital_donation_key">hospital:</string>
     <string name="city_donation_key">city:</string>
     <string name="name_of_hospital_value">name of hospital</string>
@@ -56,11 +57,11 @@
     <string name="birthday">birthday</string>
     <string name="search">search</string>
     <string name="sort_by">sort By</string>
-    <string name="USER_DATA_SHARED">USER_DATA</string>
-    <string name="PHONE_USER_DATA_SHARED">PHONE_USER_DATA</string>
+    <string name="USER_DATA_SHARED" translatable="false">USER_DATA</string>
+    <string name="PHONE_USER_DATA_SHARED" translatable="false">PHONE_USER_DATA</string>
     <string name="categories">categories</string>
     <string name="filter">filter</string>
-    <string name="remember_me_instance">REMEMBER</string>
+    <string name="remember_me_instance" translatable="false">REMEMBER</string>
     <string name="favourite">favourite</string>
     <string name="contact_us">contact us</string>
     <string name="about_application">about application</string>
@@ -82,15 +83,18 @@
     <string name="notification_setting">Notification setting</string>
     <string name="exit_app_dialog_msg">Exit from Blood Type?</string>
     <string name="exit">Exit</string>
+    <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="choose_location">choose location</string>
     <string name="address_marker">Address</string>
     <string name="address_key">Address:</string>
     <string name="notification_for_your_request">notification request</string>
-    <string name="dummy_date">mon :16/12/2019</string>
+    <string name="dummy_date" translatable="false">mon :16/12/2019</string>
     <string name="no_found_notification">no found notification</string>
     <string name="Please_start_saving_humanity_now">Please start saving humanity now</string>
     <string name="subject">subject</string>
     <string name="content">content</string>
     <string name="message">message</string>
+    <string name="no_connection">No connection</string>
+    <string name="tap_to_retry">Tap to retry</string>
 </resources>

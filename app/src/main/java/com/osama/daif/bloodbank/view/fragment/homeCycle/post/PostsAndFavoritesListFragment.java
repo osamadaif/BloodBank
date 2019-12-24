@@ -1,6 +1,7 @@
 package com.osama.daif.bloodbank.view.fragment.homeCycle.post;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,18 +68,21 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
     @BindView(R.id.fragment_home_posts_fragment_progress_bar)
     ProgressBar fragmentHomePostsFragmentProgressBar;
 
-    private FloatingActionButton fab;
+    //no internet layout
+    @BindView(R.id.lyt_no_connection)
+    LinearLayout lytNoConnection;
+
     private Unbinder unbinder = null;
+    private FloatingActionButton fab;
     private LinearLayoutManager linearLayoutManager;
     private List<PostsData> postsList = new ArrayList<> ( );
     private PostsListRecyclerAdapter postsAdapter;
+    private int loadedPage = 1;
     private int maxPage = 0;
     private OnEndLess onEndLess;
 
-    Bundle bundle;
-
-    HomeCycleActivity homeCycleActivity;
-
+    private Bundle bundle;
+    private HomeCycleActivity homeCycleActivity;
     private SpinnerAdapter2 categoriesAdapter = null;
 
     public PostsAndFavoritesListFragment() {
@@ -103,6 +107,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
             mId = savedInstanceState.getInt (INSTANCE_ID, DEFAULT_ID);
         }
 
+        lytNoConnection.setVisibility (View.GONE);
         bundle = getArguments ( );
         if (bundle != null && bundle.getInt (EXTRA_FAV) == 22) {
             bundle.getInt (EXTRA_FAV);
@@ -124,6 +129,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
             homeCycleActivity.setBehavior (null);
             fragmentHomePostsLayout.setVisibility (View.VISIBLE);
             fab = getActivity ( ).findViewById (R.id.home_container_fragment_f_a_btn_add);
+            homeCycleActivity.setBadgeData ();
             initRecyclerView ( );
 
             if (categoriesAdapter == null) {
@@ -146,11 +152,12 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
                 if (current_page <= maxPage) {
                     if (maxPage != 0 && current_page != 1) {
                         onEndLess.previous_page = current_page;
-
                         getPosts (current_page);
                     } else {
                         onEndLess.current_page = onEndLess.previous_page;
                     }
+                } else {
+                    onEndLess.current_page = onEndLess.previous_page;
                 }
             }
         };
@@ -159,7 +166,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
         postsAdapter = new PostsListRecyclerAdapter (getContext ( ), getActivity ( ), postsList, this, false);
         postsAdapter.setHasStableIds (true);
         postsRecyclerView.setAdapter (postsAdapter);
-
+        postsRecyclerView.addOnScrollListener (onEndLess);
         postsRecyclerView.addOnScrollListener (new RecyclerView.OnScrollListener ( ) {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -175,46 +182,41 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
 
             }
         });
-        postsRecyclerView.addOnScrollListener (onEndLess);
+
 
         if (postsList.size ( ) == 0 || changeFav) {
-            fragmentHomePostsFragmentProgressBar.setVisibility (View.VISIBLE);
-            getPosts (1);
-
-//            if (bundle != null) {
-//                if (bundle.getInt(EXTRA_FAV) != 22) {
-//                    changeFav = false;
-//
-//                }
-//            } else {
+            checkIfNoConnection (loadedPage);
             changeFav = false;
-
-//            }
-
-
         }
     }
 
     private void getPosts(int page) {
+
         String apiToken = loadUserData (getActivity ( )).getApiToken ( );
         getClient ( ).getAllPosts (apiToken, page).enqueue (new Callback<Posts> ( ) {
             @Override
             public void onResponse(Call<Posts> call, Response<Posts> response) {
                 try {
-                    if (response.body ( ).getStatus ( ) == 1 ) {
-                            fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
-                            maxPage = response.body ( ).getData ( ).getLastPage ( );
-                            postsList.addAll (response.body ( ).getData ( ).getData ( ));
-                            postsAdapter.notifyDataSetChanged ( );
+                    if (response.body ( ).getStatus ( ) == 1) {
+                        fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
+                        noInternetVisibility (View.VISIBLE, View.GONE);
+                        maxPage = response.body ( ).getData ( ).getLastPage ( );
+                        postsList.addAll (response.body ( ).getData ( ).getData ( ));
+                        postsAdapter.notifyDataSetChanged ( );
+                    }else {
+                        setNoConnection ();
                     }
 
                 } catch (Exception e) {
+//                    Toast.makeText (getActivity ( ), e.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                    setNoConnection ();
                 }
             }
 
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
-                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+//                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                setNoConnection ();
             }
         });
     }
@@ -228,8 +230,7 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
         postsAdapter.setHasStableIds (true);
         postsRecyclerView.setAdapter (postsAdapter);
         if (postsList.size ( ) == 0 || changeFav) {
-            fragmentHomePostsFragmentProgressBar.setVisibility (View.VISIBLE);
-            getFav ( );
+            checkIfNoConnection (loadedPage);
         }
     }
 
@@ -241,21 +242,33 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
                 try {
                     if (response.body ( ).getStatus ( ) == 1) {
                         fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
+                        noInternetVisibility (View.VISIBLE, View.GONE);
                         postsList.clear ( );
                         postsList.addAll (response.body ( ).getData ( ).getData ( ));
                         postsAdapter.notifyDataSetChanged ( );
+                    }else {
+                        new Handler ( ).postDelayed (() -> {
+                            fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
+                            noInternetVisibility (View.GONE, View.VISIBLE);
+                            fab.hide ();
+                        }, 1000);
                     }
                 } catch (Exception e) {
-                    Toast.makeText (getActivity ( ), e.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+//                    Toast.makeText (getActivity ( ), e.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                    fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
+                    noInternetVisibility (View.VISIBLE, View.GONE);
+                    homeCycleActivity.useSnackBar (e.getMessage ());
                 }
             }
 
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
-                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+//                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                setNoConnection ();
             }
         });
     }
+
 
     @OnClick(R.id.fragment_home_posts_img_search)
     public void onClick() {
@@ -269,15 +282,16 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
                 try {
                     if (response.body ( ).getStatus ( ) == 1) {
                         fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
-                        if (categoriesAdapter.selectedId != 0 && searchTXT.length () > 0) {
+                        if (categoriesAdapter.selectedId != 0 && searchTXT.length ( ) > 0) {
                             maxPage = response.body ( ).getData ( ).getLastPage ( );
                             postsList.clear ( );
                             postsList.addAll (response.body ( ).getData ( ).getData ( ));
                             postsAdapter.notifyDataSetChanged ( );
 
-                        }else {
-                            if (postsList.size ( ) == 0){
-                                getPosts (response.body ( ).getData ( ).getLastPage ( ));
+                        } else {
+                            if (postsList.size ( ) == 0) {
+//                                getPosts (response.body ( ).getData ( ).getLastPage ( ));
+                                checkIfNoConnection (loadedPage);
                             }
                         }
 
@@ -294,6 +308,38 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
         });
     }
 
+    private void noInternetVisibility(int postsVisibility, int noInternetVisibility) {
+        postsRecyclerView.setVisibility (postsVisibility);
+        if (bundle != null && bundle.getInt (EXTRA_FAV) == 22) {
+            fragmentHomePostsLayout.setVisibility (View.GONE);
+        } else {
+            fragmentHomePostsLayout.setVisibility (postsVisibility);
+        }
+
+        lytNoConnection.setVisibility (noInternetVisibility);
+    }
+
+    private void checkIfNoConnection(int page) {
+        noInternetVisibility (View.GONE, View.GONE);
+        fragmentHomePostsFragmentProgressBar.setVisibility (View.VISIBLE);
+        if (bundle != null && bundle.getInt (EXTRA_FAV) == 22) {
+            getFav ( );
+        } else {
+            homeCycleActivity.setBadgeData ();
+            getPosts (page );
+        }
+    }
+
+    private void setNoConnection(){
+        new Handler ( ).postDelayed (() -> {
+            fragmentHomePostsFragmentProgressBar.setVisibility (View.GONE);
+            noInternetVisibility (View.GONE, View.VISIBLE);
+            if (fab != null) {
+                fab.hide ();
+            }
+
+        }, 1000);
+    }
     @Override
     public void onItemClickListener(int itemId) {
         PostsData clickedItem = postsList.get (itemId);
@@ -302,18 +348,18 @@ public class PostsAndFavoritesListFragment extends BaseFragment implements Posts
         replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.home_container_fr_frame, postDetailsFragment);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView ( );
-        unbinder.unbind ( );
-    }
 
     @Override
     public void onBack() {
         if (bundle != null && bundle.getInt (EXTRA_FAV) == 22) {
             super.onBack ( );
         } else {
-            homeCycleActivity.onBackHome ();
+            homeCycleActivity.onBackHome ( );
         }
+    }
+
+    @OnClick(R.id.lyt_no_connection)
+    public void onViewClicked() {
+        checkIfNoConnection (loadedPage);
     }
 }

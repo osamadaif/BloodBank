@@ -7,6 +7,10 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
+    <include
+        android:id="@+id/no_internet_posts_list"
+        layout="@layout/no_internet_connection"/>
+
     <LinearLayout
         android:id="@+id/fragment_home_posts_layout"
         style="@style/text_view2"

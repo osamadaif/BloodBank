@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,15 +47,11 @@ public class NotificationFragment extends BaseFragment {
     private LinearLayoutManager linearLayoutManager;
     private List<NotificationData> notificationList = new ArrayList<> ( );
     private NotificationAdapter notificationAdapter;
+    private String apiToken;
     private int maxPage = 0;
     private OnEndLess onEndLess;
-
-    HomeCycleActivity homeCycleActivity;
-
-    String apiToken;
-
-    View mEmptyView;
-
+    private HomeCycleActivity homeCycleActivity;
+    private View mEmptyView;
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -93,11 +91,12 @@ public class NotificationFragment extends BaseFragment {
                 if (current_page <= maxPage) {
                     if (maxPage != 0 && current_page != 1) {
                         onEndLess.previous_page = current_page;
-
                         getNotification (current_page);
                     } else {
                         onEndLess.current_page = onEndLess.previous_page;
                     }
+                }else {
+                    onEndLess.current_page = onEndLess.previous_page;
                 }
             }
         };
@@ -106,29 +105,28 @@ public class NotificationFragment extends BaseFragment {
         notificationAdapter = new NotificationAdapter (getActivity ( ), notificationList);
         notificationFragmentRv.setAdapter (notificationAdapter);
         if (notificationList.size ( ) == 0) {
-            notificationFragmentProgressBar.setVisibility (View.VISIBLE);
             getNotification (1);
         }
 
     }
 
     private void getNotification(int page) {
+        notificationFragmentProgressBar.setVisibility (View.VISIBLE);
         getClient ( ).getNotifications (apiToken, page).enqueue (new Callback<Notification> ( ) {
             @Override
-            public void onResponse(Call<Notification> call, Response<Notification> response) {
+            public void onResponse(Call<Notification> call, @NonNull Response<Notification> response) {
                 try {
                     if (response.body ( ).getStatus ( ) == 1) {
                         notificationFragmentProgressBar.setVisibility (View.GONE);
+                        maxPage = response.body ( ).getData ( ).getLastPage ( );
                         notificationList.addAll (response.body ( ).getData ( ).getData ( ));
                         notificationAdapter.notifyDataSetChanged ( );
                         if (notificationList.size ( ) == 0) {
                             notificationFragmentRv.setVisibility (View.GONE);
                             mEmptyView.setVisibility (View.VISIBLE);
-
                         } else {
-                            notificationFragmentRv.setVisibility (View.VISIBLE);
+                            notificationFragmentRv.setVisibility (View.GONE);
                             mEmptyView.setVisibility (View.GONE);
-
                         }
                     }
                 } catch (Exception e) {
@@ -138,9 +136,26 @@ public class NotificationFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Notification> call, Throwable t) {
-
+                notificationFragmentProgressBar.setVisibility (View.GONE);
+                showNoConnectionDialog ();
             }
         });
+    }
+
+    private void showNoConnectionDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder (getActivity ( ));
+        builder.setMessage (R.string.no_connection);
+        builder.setPositiveButton (R.string.done, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss ( );
+                homeCycleActivity.setSelection (R.id.nav_home);
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create ( );
+        alertDialog.show ( );
     }
 
     @Override
@@ -148,11 +163,6 @@ public class NotificationFragment extends BaseFragment {
         homeCycleActivity.setSelection (R.id.nav_home);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView ( );
-        unbinder.unbind ( );
-    }
 
     @OnClick(R.id.notification_empty_view_fragment_btn_donation)
     public void onViewClicked() {

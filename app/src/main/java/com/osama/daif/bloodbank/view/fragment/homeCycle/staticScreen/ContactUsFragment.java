@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 
 import com.osama.daif.bloodbank.R;
@@ -138,9 +139,25 @@ public class ContactUsFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Settings> call, Throwable t) {
-
+                contactUsFragmentProgressBar.setVisibility (View.GONE);
+                showNoConnectionDialog ();
             }
         });
+    }
+
+    private void showNoConnectionDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder (getActivity ( ));
+        builder.setMessage (R.string.no_connection);
+        builder.setPositiveButton (R.string.done, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss ( );
+                homeCycleActivity.setSelection (R.id.nav_home);
+            }
+        });
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create ( );
+        alertDialog.show ( );
     }
 
     private void startBrowsing(String url) {
@@ -192,6 +209,7 @@ public class ContactUsFragment extends BaseFragment {
                 break;
         }
     }
+
 
 
 }

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.model.settings.Settings;
@@ -72,9 +74,26 @@ public class AboutAppFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Settings> call, Throwable t) {
+                fragmentAboutAppProgressBar.setVisibility (View.GONE);
+                showNoConnectionDialog ();
 
             }
         });
+    }
+
+    private void showNoConnectionDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder (getActivity ( ));
+        builder.setMessage (R.string.no_connection);
+        builder.setPositiveButton (R.string.done, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss ( );
+                homeCycleActivity.setSelection (R.id.nav_home);
+            }
+        });
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create ( );
+        alertDialog.show ( );
     }
 
     @Override

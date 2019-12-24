@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -154,13 +155,14 @@ public class NotificationSettingFragment extends BaseFragment {
                     }
 
                 } catch (Exception e) {
-
+                    notificationSettingsFragmentProgressBar.setVisibility (View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<NotificationSetting> call, Throwable t) {
-
+                notificationSettingsFragmentProgressBar.setVisibility (View.GONE);
+                showNoConnectionDialog ();
             }
         });
     }
@@ -222,6 +224,20 @@ public class NotificationSettingFragment extends BaseFragment {
         }
     }
 
+    private void showNoConnectionDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder (getActivity ( ));
+        builder.setMessage (R.string.no_connection);
+        builder.setPositiveButton (R.string.done, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss ( );
+                homeCycleActivity.setSelection (R.id.nav_home);
+            }
+        });
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create ( );
+        alertDialog.show ( );
+    }
 
     @OnClick({R.id.notification_settings_fragment_rel_bloods_bar, R.id.notification_settings_fragment_rel_government_bar, R.id.notification_settings_fragment_btn_save})
     public void onClick(View view) {

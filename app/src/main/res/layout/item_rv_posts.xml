@@ -22,6 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dim_8dp"
         android:layout_marginTop="@dimen/dim_8dp"
+        android:layout_marginEnd="@dimen/dim_8dp"
+        android:layout_gravity="end"
         android:contentDescription="@string/add_to_favorite"
         android:src="@drawable/circle_with_heart_border" />
 

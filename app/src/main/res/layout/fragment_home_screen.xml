@@ -15,6 +15,7 @@
         android:minHeight="?attr/actionBarSize"
         app:tabIndicatorColor="@color/white2"
         app:tabSelectedTextColor="@color/white2"
+        android:layoutDirection="ltr"
         app:tabTextColor="@color/white2" />
 
 

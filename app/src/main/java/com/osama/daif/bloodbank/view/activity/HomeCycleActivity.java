@@ -18,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.model.notificationCount.NotificationCount;
+import com.osama.daif.bloodbank.helper.HelperMethods;
 import com.osama.daif.bloodbank.view.fragment.HomeContainerFragment;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.EditProfileFragment;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.notification.NotificationFragment;
@@ -34,6 +35,7 @@ import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUs
 import static com.osama.daif.bloodbank.helper.HelperMethods.getSnackBarWithBottomNavigation;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 import static com.osama.daif.bloodbank.helper.HelperMethods.showSnackBarMargin;
+import static com.osama.daif.bloodbank.helper.HelperMethods.showSnackBarWithBottomNavigation;
 import static com.osama.daif.bloodbank.helper.SnackBarHelper.configSnackBar;
 
 public class HomeCycleActivity extends BaseActivity {
@@ -50,12 +52,16 @@ public class HomeCycleActivity extends BaseActivity {
     FrameLayout homeContainerFrFrame;
     @BindView(R.id.home_cycle_bottom_navigation)
     BottomNavigationView homeCycleBottomNavigation;
+    CoordinatorLayout coordinatorLayout;
+
 
     Toolbar toolbar;
     CoordinatorLayout.LayoutParams params;
     private long backPressedTime;
     private Toast backToast;
     private HomeContainerFragment homeContainerFragment;
+    private EditProfileFragment editProfileFragment;
+    private NotificationFragment notificationFragment;
     Snackbar snackbar;
 
 
@@ -65,7 +71,7 @@ public class HomeCycleActivity extends BaseActivity {
         setContentView(R.layout.activity_home_cycle);
 
         ButterKnife.bind(this);
-
+        coordinatorLayout = findViewById (R.id.home_activity);
         params = (CoordinatorLayout.LayoutParams) homeContainerFrFrame.getLayoutParams();
         setBehavior(null);
         homeContainerFrFrame.requestLayout();
@@ -75,7 +81,6 @@ public class HomeCycleActivity extends BaseActivity {
 //        toolbarTxtSup.setText(getString(R.string.app_name));
         replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new HomeContainerFragment());
 //        setSupportActionBar(toolbar);
-
         homeCycleBottomNavigation.setOnNavigationItemSelectedListener(item -> {
             int id =item.getItemId();
             if (id == R.id.nav_home){
@@ -85,11 +90,17 @@ public class HomeCycleActivity extends BaseActivity {
                 replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, homeContainerFragment);
             }
             else if (id == R.id.nav_user_account){
-                replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new EditProfileFragment ());
+                if (editProfileFragment == null) {
+                    editProfileFragment = new EditProfileFragment();
+                }
+                replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, editProfileFragment);
 
             }
             else if (id == R.id.nav_notification){
-                replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new NotificationFragment ());
+                if (notificationFragment == null) {
+                    notificationFragment = new NotificationFragment();
+                }
+                replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, notificationFragment);
             }
             else if (id == R.id.nav_more){
                 replaceFragment(getSupportFragmentManager(), R.id.home_container_fr_frame, new MoreFragment());
@@ -97,18 +108,24 @@ public class HomeCycleActivity extends BaseActivity {
             return true;
         });
 
+
+
+
+    }
+
+    public void setBadgeData(){
         BadgeDrawable badge = homeCycleBottomNavigation.getOrCreateBadge (R.id.nav_notification);
         badge.setBackgroundColor (getResources ().getColor (R.color.gray));
         badge.setMaxCharacterCount (3);
         badge.setBadgeTextColor (getResources ().getColor (R.color.orange));
-        badge.setBadgeGravity (BadgeDrawable.TOP_END);
-        badge.getIntrinsicHeight ();
-
+        badge.setHorizontalOffset (20);
+        badge.setVerticalOffset (20);
 
         String apiToken = loadUserData (this).getApiToken ( );
         getClient ().getNotificationsCount (apiToken).enqueue (new Callback<NotificationCount> ( ) {
             @Override
             public void onResponse(Call<NotificationCount> call, Response<NotificationCount> response) {
+                assert response.body ( ) != null;
                 if (response.body ().getStatus () == 1) {
                     int notificationCount = response.body ().getData ().getNotificationsCount ();
                     if (notificationCount == 0){
@@ -118,23 +135,31 @@ public class HomeCycleActivity extends BaseActivity {
                         badge.setNumber (notificationCount);
                     }
                 } else {
-                    Toast.makeText (HomeCycleActivity.this, response.body ().getMsg (), Toast.LENGTH_SHORT).show ( );
+//                    Toast.makeText (HomeCycleActivity.this, response.body ().getMsg (), Toast.LENGTH_SHORT).show ( );
+                    homeCycleBottomNavigation.removeBadge(R.id.nav_notification);
                 }
             }
 
             @Override
             public void onFailure(Call<NotificationCount> call, Throwable t) {
-                Toast.makeText (HomeCycleActivity.this, t.getMessage (), Toast.LENGTH_SHORT).show ( );
+//                Toast.makeText (HomeCycleActivity.this, t.getMessage (), Toast.LENGTH_SHORT).show ( );
+                homeCycleBottomNavigation.removeBadge(R.id.nav_notification);
             }
         });
-
-
     }
 
     public void setSelection(int id){
         homeCycleBottomNavigation.setSelectedItemId(id);
     }
 
+    public Boolean isSelection(int id){
+        int selectedItem = homeCycleBottomNavigation.getSelectedItemId ();
+        if (id == selectedItem){
+            return true;
+        }else {
+            return false;
+        }
+    }
     public void setBehavior(AppBarLayout.ScrollingViewBehavior behavior){
         params.setBehavior(behavior);
     }
@@ -172,13 +197,17 @@ public class HomeCycleActivity extends BaseActivity {
             snackbar.dismiss ();
             finish();
         } else {
-            final CoordinatorLayout coordinatorLayout = findViewById (R.id.home_activity);
+
 //            backToast = Toast.makeText(this, getResources().getString(R.string.Press_back_again), Toast.LENGTH_SHORT);
 //            backToast.show();
             snackbar = getSnackBarWithBottomNavigation (coordinatorLayout,getResources().getString(R.string.Press_back_again),homeCycleBottomNavigation);
             showSnackBarMargin (snackbar,32,32);
         }
         backPressedTime = System.currentTimeMillis();
+    }
+
+    public void useSnackBar(String message){
+        showSnackBarWithBottomNavigation (coordinatorLayout,message,homeCycleBottomNavigation);
     }
 
 

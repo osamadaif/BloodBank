@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -274,15 +275,33 @@ public class EditProfileFragment extends BaseFragment {
                     }
                 } catch (Exception e) {
 
+                    editProfileFragmentProgressBar.setVisibility (View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
-                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                editProfileFragmentProgressBar.setVisibility (View.GONE);
+                showNoConnectionDialog ();
+//                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
             }
         });
 
+    }
+
+    private void showNoConnectionDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder (getActivity ( ));
+        builder.setMessage (R.string.no_connection);
+        builder.setPositiveButton (R.string.done, (dialog, id) -> {
+            if (dialog != null) {
+                dialog.dismiss ( );
+                homeCycleActivity.setSelection (R.id.nav_home);
+            }
+        });
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create ( );
+        alertDialog.show ( );
     }
 
     @OnClick(R.id.edit_profile_fragment_btn_register)
@@ -290,10 +309,5 @@ public class EditProfileFragment extends BaseFragment {
         setEditProfileData ( );
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView ( );
-        unbinder.unbind ( );
-    }
 
 }

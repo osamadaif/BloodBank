@@ -2,6 +2,7 @@ package com.osama.daif.bloodbank.view.fragment;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,67 +69,51 @@ public class HomeContainerFragment extends BaseFragment {
         homeCycleActivity.setBehavior(null);
         setupViewPager(tabViewPager);
         tabLayout.setupWithViewPager(tabViewPager);
-        if (tabLayout.getSelectedTabPosition() == 0) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    Intent intent = new Intent(MainActivity.this, NoteEditorActivity.class);
-//                    startActivity(intent);
-                }
-            });
-        }
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new CreateDonationFragment());
-            }
-        });
+        fab.setOnClickListener(view1 ->
+                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new CreateDonationFragment()));
         tabViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
-                    case 0:
+                    case 0: {
                         fab.setBackgroundTintList(getResources().getColorStateList(R.color.white));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_red, getContext().getTheme()));
                         } else {
                             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_red));
                         }
-                        fab.show();
                         break;
-
-                    case 1:
+                    }
+                    case 1: {
                         fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white, getContext().getTheme()));
                         } else {
                             fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white));
                         }
-                        fab.show();
                         break;
-
-                    default:
-                        fab.hide();
-                        break;
+                    }
+                }
+                if (fab.isShown ()){
+                    changeFabIcon (position);
+                }else {
+                    fab.hide ();
                 }
             }
-
             @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
+            public void onPageScrollStateChanged(int state) {}
         });
-
-
-
         return view;
     }
 
+    private void changeFabIcon(final int index) {
+        fab.hide();
+        new Handler ().postDelayed(() -> {
+            fab.show();
+        }, 300);
+    }
     @Override
     public void onResume() {
         homeCycleActivity.appbarVisibility(View.GONE);
@@ -136,25 +121,12 @@ public class HomeContainerFragment extends BaseFragment {
 
     }
 
-
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerWithFragmentAdapter(getChildFragmentManager());
 
         adapter.addPager(new PostsAndFavoritesListFragment(), getString(R.string.posts));
-        adapter.addPager(new DonationListFragment(), getResources().getString(R.string.donation));
+        adapter.addPager(new DonationListFragment(), getResources().getString(R.string.donations_requests));
 
         viewPager.setAdapter(adapter);
     }
-
-//    @Override
-//    public void onBack() {
-//        if (backPressedTime + 2000 > System.currentTimeMillis()) {
-//            backToast.cancel();
-//            getActivity().finish();
-//        } else {
-//            backToast = Toast.makeText(getActivity(), getResources().getString(R.string.Press_back_again), Toast.LENGTH_SHORT);
-//            backToast.show();
-//        }
-//        backPressedTime = System.currentTimeMillis();
-//    }
 }

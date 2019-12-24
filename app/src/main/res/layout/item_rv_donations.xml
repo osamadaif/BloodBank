@@ -5,14 +5,11 @@
     android:id="@+id/SwipeRevealLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
+    android:layout_marginStart="@dimen/dim_8dp"
     android:layout_marginTop="@dimen/dim_8dp"
-    android:layout_marginEnd="8dp"
+    android:layout_marginEnd="@dimen/dim_8dp"
     android:layout_marginBottom="0dp"
-
-
-    android:orientation="vertical"
-
+    android:layoutDirection="locale"
     app:dragEdge="right"
     app:mode="same_level">
 
@@ -21,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:gravity="center"
         android:padding="@dimen/dim_8dp">
 
         <ImageView
@@ -42,15 +40,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dim_8dp"
+        android:paddingEnd="0dp"
+        android:layoutDirection="locale">
 
+
+<!--        android:layoutDirection="ltr"-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="4dp"
-
-
+            android:layoutDirection="locale"
             app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+            app:layout_constraintStart_toStartOf="@+id/materialCardView"
             app:layout_constraintTop_toTopOf="@+id/materialCardView"
             tools:ignore="MissingConstraints">
 
@@ -70,7 +73,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/blood_type_test"
                 android:textColor="@color/white"
                 android:textSize="@dimen/dim_38sp"
                 android:textStyle="bold" />
@@ -83,12 +85,10 @@
             android:id="@+id/materialCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dim_30dp"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:divider="@android:color/transparent"
             android:dividerHeight="0.0px"
-
             android:theme="@style/Theme.MaterialComponents.Light"
             app:cardCornerRadius="@dimen/dim_48dp"
             app:cardElevation="3dp"
@@ -100,6 +100,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="locale"
                 android:orientation="horizontal">
 
 
@@ -107,6 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_horizontal"
+                    android:layoutDirection="locale"
                     android:padding="@dimen/dim_8dp">
 
                     <TextView
@@ -114,9 +116,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="@dimen/dim_72dp"
+                        android:layout_marginStart="@dimen/dim_104dp"
                         android:layout_marginEnd="@dimen/dim_4dp"
                         android:layout_marginBottom="@dimen/dim_4dp"
+                        android:textAlignment="viewStart"
+                        android:textDirection="anyRtl"
                         android:text="@string/name_donation_key"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_18sp" />
@@ -127,6 +131,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:layout_toEndOf="@id/item_rv_donation_blood_type_txt_name_key"
+                        android:textAlignment="viewStart"
+                        android:textDirection="anyRtl"
                         android:text="@string/name_of_the_user_value"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_18sp" />
@@ -136,8 +142,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/item_rv_donation_blood_type_txt_name_key"
-                        android:layout_marginStart="@dimen/dim_72dp"
+                        android:layout_marginStart="@dimen/dim_104dp"
                         android:layout_marginEnd="@dimen/dim_4dp"
+                        android:textAlignment="viewStart"
+                        android:textDirection="locale"
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:text="@string/hospital_donation_key"
                         android:textColor="@color/black"
@@ -150,6 +158,8 @@
                         android:layout_below="@id/item_rv_donation_blood_type_txt_name_value"
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:layout_toEndOf="@id/item_rv_donation_blood_type_txt_hospital_key"
+                        android:textAlignment="viewStart"
+                        android:textDirection="locale"
                         android:text="@string/name_of_hospital_value"
                         android:textColor="@color/black"
 
@@ -160,8 +170,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/item_rv_donation_blood_type_txt_hospital_key"
-                        android:layout_marginStart="@dimen/dim_72dp"
+                        android:layout_alignBaseline="@id/item_rv_donation_blood_type_txt_city_value"
+                        android:layout_marginStart="@dimen/dim_104dp"
                         android:layout_marginBottom="@dimen/dim_4dp"
+                        android:textAlignment="viewStart"
+                        android:textDirection="locale"
                         android:text="@string/city_donation_key"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_18sp" />
@@ -172,6 +185,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/item_rv_donation_blood_type_txt_hospital_value"
                         android:layout_toEndOf="@id/item_rv_donation_blood_type_txt_city_key"
+                        android:textAlignment="viewStart"
+                        android:textDirection="locale"
                         android:text="@string/name_of_hospital_value"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_18sp" />

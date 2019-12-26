@@ -2,6 +2,7 @@ package com.osama.daif.bloodbank.view.fragment.homeCycle.donation;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ public class DonationListFragment extends Fragment {
     private Toast backToast;
     String apiToken;
     int bloodTypeId;
+    private static final String TAG = "DonationListFragment";
 
 
     public DonationListFragment() {
@@ -240,6 +242,7 @@ public class DonationListFragment extends Fragment {
                     progressBar.setVisibility (View.GONE);
                     noInternetVisibility (View.VISIBLE, View.GONE);
                     homeCycleActivity.useSnackBar (e.getMessage ());
+                    Log.d (TAG, "onResponse: " + e.getMessage ());
                 }
             }
 

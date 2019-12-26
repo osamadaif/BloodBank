@@ -69,6 +69,7 @@ public class HomeContainerFragment extends BaseFragment {
         homeCycleActivity.setBehavior(null);
         setupViewPager(tabViewPager);
         tabLayout.setupWithViewPager(tabViewPager);
+
         fab.setOnClickListener(view1 ->
                 replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_container_fr_frame, new CreateDonationFragment()));
         tabViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -118,8 +119,9 @@ public class HomeContainerFragment extends BaseFragment {
     public void onResume() {
         homeCycleActivity.appbarVisibility(View.GONE);
         super.onResume ( );
-
     }
+
+
 
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerWithFragmentAdapter(getChildFragmentManager());

@@ -217,7 +217,7 @@ public class HelperMethods {
             textView.setText (Html.fromHtml (s));
         }
     }
-
+//
 //    public static void customToast(Activity activity, String ToastTitle, boolean failed) {
 //
 //        LayoutInflater inflater = activity.getLayoutInflater();

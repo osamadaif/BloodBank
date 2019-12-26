@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nested_scroll_view"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:scrollingCache="true">
+    android:paddingBottom="@dimen/dim_64dp"
+    >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        android:id="@+id/nested_scroll_view">
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,8 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_below="@id/notification_settings_fragment_btn_save"
-
+                android:layout_below="@id/notification_settings_fragment_rel_government"
                 android:indeterminate="true"
                 android:visibility="gone" />
 
@@ -153,22 +161,23 @@
 
             </RelativeLayout>
 
-            <Button
-                android:id="@+id/notification_settings_fragment_btn_save"
-                style="@style/btn"
-                android:layout_width="222dp"
-                android:layout_height="@dimen/dim_38dp"
-                android:layout_below="@id/notification_settings_fragment_rel_government"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/background_shape_orange"
-                android:text="@string/save"/>
-
 
 
         </RelativeLayout>
 
     </ScrollView>
 
+    </androidx.core.widget.NestedScrollView>
 
-
-</androidx.core.widget.NestedScrollView>
+    <Button
+        android:id="@+id/notification_settings_fragment_btn_save"
+        style="@style/btn"
+        android:layout_width="222dp"
+        android:layout_height="@dimen/dim_32dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/background_shape_orange"
+        android:textSize="@dimen/dim_18sp"
+        android:text="@string/save"/>
+<!--    android:layout_below="@id/notification_settings_fragment_rel_government"-->
+</RelativeLayout>

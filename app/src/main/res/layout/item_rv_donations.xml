@@ -48,10 +48,9 @@
 
 <!--        android:layoutDirection="ltr"-->
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dim_104dp"
             android:layout_height="wrap_content"
             android:elevation="4dp"
-            android:layoutDirection="locale"
             app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
             app:layout_constraintStart_toStartOf="@+id/materialCardView"
             app:layout_constraintTop_toTopOf="@+id/materialCardView"
@@ -62,8 +61,6 @@
                 android:id="@+id/item_rv_donation_blood_type_background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:contentDescription="@string/background_blood_type"
                 android:src="@drawable/circle_red">
 
             </ImageView>

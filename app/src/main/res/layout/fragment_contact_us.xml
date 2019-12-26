@@ -29,6 +29,7 @@
                     android:paddingStart="@dimen/dim_8dp"
                     android:paddingEnd="@dimen/dim_8dp"
                     android:text="@string/phone"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/dim_22sp" />
 
@@ -64,6 +65,7 @@
                     android:fontFamily="sans-serif"
                     android:paddingStart="@dimen/dim_8dp"
                     android:paddingEnd="@dimen/dim_8dp"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/dim_22sp" />
 
@@ -87,6 +89,7 @@
                     android:paddingStart="@dimen/dim_8dp"
                     android:paddingEnd="@dimen/dim_8dp"
                     android:text="@string/email"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/dim_22sp" />
 
@@ -122,6 +125,7 @@
                     android:fontFamily="sans-serif"
                     android:paddingStart="@dimen/dim_8dp"
                     android:paddingEnd="@dimen/dim_8dp"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/dim_22sp" />
 
@@ -150,15 +154,15 @@
                     android:id="@+id/contact_us_fragment_btn_facebook"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dim_56dp"
-                    android:layout_column="0"
                     android:layout_row="0"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:background="#0889EE"
+                    android:gravity="center"
                     android:padding="@dimen/dim_8dp"
-                    android:src="@drawable/ic_facebook"
-                    android:gravity="center"/>
+                    android:src="@drawable/ic_facebook" />
 
                 <!-- Column 2 -->
 
@@ -166,15 +170,15 @@
                     android:id="@+id/contact_us_fragment_btn_instagram"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dim_56dp"
-                    android:layout_column="1"
                     android:layout_row="0"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:background="#7A58B9"
                     android:gravity="center"
                     android:padding="@dimen/dim_12dp"
-                    android:src="@drawable/ic_instagram"/>
+                    android:src="@drawable/ic_instagram" />
 
                 <!-- Row 2 -->
 
@@ -184,14 +188,14 @@
                     android:id="@+id/contact_us_fragment_btn_twitter"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dim_56dp"
-                    android:layout_column="0"
                     android:layout_row="1"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:background="#1DA2F1"
                     android:padding="@dimen/dim_8dp"
-                    android:src="@drawable/ic_twitter"/>
+                    android:src="@drawable/ic_twitter" />
 
                 <!-- Column 2 -->
 
@@ -199,14 +203,14 @@
                     android:id="@+id/contact_us_fragment_btn_youtube"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/dim_56dp"
-                    android:layout_column="1"
                     android:layout_row="1"
-                    android:layout_columnWeight="1"
                     android:layout_rowWeight="1"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
                     android:layout_gravity="fill"
                     android:background="#E60E0B"
                     android:padding="@dimen/dim_12dp"
-                    android:src="@drawable/ic_youtube"/>
+                    android:src="@drawable/ic_youtube" />
 
             </GridLayout>
 

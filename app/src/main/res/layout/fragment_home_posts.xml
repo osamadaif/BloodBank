@@ -63,7 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fragment_home_posts_layout"
-        android:padding="@dimen/dim_12dp"
+        android:paddingTop="@dimen/dim_12dp"
+        android:paddingStart="@dimen/dim_12dp"
+        android:paddingEnd="@dimen/dim_12dp"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>

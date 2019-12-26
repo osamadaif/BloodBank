@@ -8,14 +8,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.adapter.NotificationSettingAdapter;
 import com.osama.daif.bloodbank.data.model.city.GeneralResponse;
@@ -38,12 +36,11 @@ import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.collapse;
 import static com.osama.daif.bloodbank.helper.HelperMethods.expand;
-import static com.osama.daif.bloodbank.helper.HelperMethods.getSnackBar;
 import static com.osama.daif.bloodbank.helper.HelperMethods.showSnackBar;
-import static com.osama.daif.bloodbank.helper.HelperMethods.showSnackBarMargin;
 
 public class NotificationSettingFragment extends BaseFragment {
-
+    @BindView(R.id.notification_settings_fragment_progress_bar)
+    ProgressBar notificationSettingsFragmentProgressBar;
     @BindView(R.id.notification_settings_fragment_rv_blood_types)
     RecyclerView recyclerViewBloodTypes;
     @BindView(R.id.notification_settings_fragment_rel_bloods_gone)
@@ -60,12 +57,33 @@ public class NotificationSettingFragment extends BaseFragment {
     ImageView notificationSettingsFragmentIvGovernmentBarImg;
     @BindView(R.id.notification_settings_fragment_rel_government_bar)
     RelativeLayout notificationSettingsFragmentRelGovernmentBar;
-    @BindView(R.id.notification_settings_fragment_btn_save)
-    Button notificationSettingsFragmentBtnSave;
     @BindView(R.id.nested_scroll_view)
     NestedScrollView nestedScrollView;
-    @BindView(R.id.notification_settings_fragment_progress_bar)
-    ProgressBar notificationSettingsFragmentProgressBar;
+    @BindView(R.id.notification_settings_fragment_btn_save)
+    Button notificationSettingsFragmentBtnSave;
+
+//    @BindView(R.id.notification_settings_fragment_rv_blood_types)
+//    RecyclerView recyclerViewBloodTypes;
+//    @BindView(R.id.notification_settings_fragment_rel_bloods_gone)
+//    RelativeLayout notificationSettingsFragmentRelBloodsGone;
+//    @BindView(R.id.notification_settings_fragment_iv_bloods_bar_img)
+//    ImageView notificationSettingsFragmentIvBloodsBarImg;
+//    @BindView(R.id.notification_settings_fragment_rel_bloods_bar)
+//    RelativeLayout notificationSettingsFragmentRelBloodsBar;
+//    @BindView(R.id.notification_settings_fragment_rv_government)
+//    RecyclerView recyclerViewGovernment;
+//    @BindView(R.id.notification_settings_fragment_rel_government_gone)
+//    RelativeLayout notificationSettingsFragmentRelGovernmentGone;
+//    @BindView(R.id.notification_settings_fragment_iv_government_bar_img)
+//    ImageView notificationSettingsFragmentIvGovernmentBarImg;
+//    @BindView(R.id.notification_settings_fragment_rel_government_bar)
+//    RelativeLayout notificationSettingsFragmentRelGovernmentBar;
+//    @BindView(R.id.notification_settings_fragment_btn_save)
+//    Button notificationSettingsFragmentBtnSave;
+//    @BindView(R.id.nested_scroll_view)
+//    NestedScrollView nestedScrollView;
+//    @BindView(R.id.notification_settings_fragment_progress_bar)
+//    ProgressBar notificationSettingsFragmentProgressBar;
 
     private String apiToken;
 
@@ -102,7 +120,7 @@ public class NotificationSettingFragment extends BaseFragment {
         homeCycleActivity.bottomNavigationVisibility (View.GONE);
         apiToken = loadUserData (getActivity ( )).getApiToken ( );
 
-        if (bloodTypes.size () == 0 || governorates.size () == 0){
+        if (bloodTypes.size ( ) == 0 || governorates.size ( ) == 0) {
             notificationSettingsFragmentProgressBar.setVisibility (View.VISIBLE);
             getNotificationSetting ( );
         }
@@ -116,7 +134,7 @@ public class NotificationSettingFragment extends BaseFragment {
                         try {
                             if (response.body ( ).getStatus ( ) == 1) {
 //                                Toast.makeText (homeCycleActivity, response.body ( ).getMsg ( ), Toast.LENGTH_SHORT).show ( );
-                                showSnackBar (v,response.body ( ).getMsg ( ));
+                                showSnackBar (v, response.body ( ).getMsg ( ));
 //                                showSnackBarMargin (snackbar, 32, 32);
 //                                getActivity ( ).onBackPressed ( );
                             }
@@ -162,7 +180,7 @@ public class NotificationSettingFragment extends BaseFragment {
             @Override
             public void onFailure(Call<NotificationSetting> call, Throwable t) {
                 notificationSettingsFragmentProgressBar.setVisibility (View.GONE);
-                showNoConnectionDialog ();
+                showNoConnectionDialog ( );
             }
         });
     }

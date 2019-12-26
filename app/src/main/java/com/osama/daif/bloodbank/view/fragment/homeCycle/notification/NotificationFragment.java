@@ -124,10 +124,10 @@ public class NotificationFragment extends BaseFragment {
                         if (notificationList.size ( ) == 0) {
                             notificationFragmentRv.setVisibility (View.GONE);
                             mEmptyView.setVisibility (View.VISIBLE);
-                        } else {
-                            notificationFragmentRv.setVisibility (View.GONE);
-                            mEmptyView.setVisibility (View.GONE);
                         }
+                    }else {
+                        notificationFragmentRv.setVisibility (View.GONE);
+                        mEmptyView.setVisibility (View.VISIBLE);
                     }
                 } catch (Exception e) {
 

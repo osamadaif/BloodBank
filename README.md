@@ -3,9 +3,12 @@ The Blood Bank application is a contribution from us to help society solve the p
 The application facilitates access to donors while preserving the privacy of donor's data and makes sure they are not disturbed, especially women.
 This repository holds the application version with dummy data not real data.
 
-you can download apk file from: https://www.mediafire.com/file/9c5h9fd8lmxx35o/bloodBank-debug.apk/file
+you can download apk file from: 
+https://www.mediafire.com/file/9c5h9fd8lmxx35o/bloodBank-debug.apk/file
 
+OR
 
+https://we.tl/t-lR4pahsxSE
 
 
 

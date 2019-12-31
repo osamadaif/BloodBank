@@ -17,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.osama.daif.bloodbank.R;
+import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.data.model.notificationCount.NotificationCount;
 import com.osama.daif.bloodbank.helper.HelperMethods;
 import com.osama.daif.bloodbank.view.fragment.HomeContainerFragment;
@@ -67,6 +68,8 @@ public class HomeCycleActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        HelperMethods.changeLang(this, SharedPreferencesManger.onLoadLang(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_cycle);
 

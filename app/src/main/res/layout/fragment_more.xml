@@ -184,6 +184,40 @@
                 android:background="@color/gray" />
 
             <LinearLayout
+                android:id="@+id/language_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_16dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dim_36dp"
+                    android:layout_height="@dimen/dim_36dp"
+                    android:padding="@dimen/dim_4dp"
+                    android:src="@drawable/ic_translate_red" />
+
+                <TextView
+                    android:id="@+id/language_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif"
+                    android:paddingStart="@dimen/dim_8dp"
+                    android:paddingEnd="@dimen/dim_8dp"
+                    android:text="@string/language"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dim_26sp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="@dimen/dim_16dp"
+                android:layout_marginEnd="@dimen/dim_16dp"
+                android:background="@color/gray" />
+
+            <LinearLayout
                 android:id="@+id/logout_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

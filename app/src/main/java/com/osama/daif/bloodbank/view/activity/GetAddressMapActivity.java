@@ -36,6 +36,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.osama.daif.bloodbank.R;
+import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
+import com.osama.daif.bloodbank.helper.HelperMethods;
 import com.osama.daif.bloodbank.view.fragment.homeCycle.donation.CreateDonationFragment;
 
 import java.io.IOException;
@@ -87,6 +89,8 @@ public class GetAddressMapActivity extends AppCompatActivity implements OnMapRea
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        HelperMethods.changeLang(this, SharedPreferencesManger.onLoadLang(this));
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_get_address_map);
         ButterKnife.bind (this);

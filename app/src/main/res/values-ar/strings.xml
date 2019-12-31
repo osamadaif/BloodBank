@@ -93,4 +93,7 @@
     <string name="slider2">"أما عند الإنسان فالصحة لدى الأفراد والمجتمعات وفقا لتعريف منظمة الصحة العالمية في إعلان لمبادئ الرعاية الصحية الأولية عام 1978. "</string>
     <string name="slider3">هي حالة من اكتمال السلامة البدنية والعقلية والإجتماعية وليس مجرد غياب أو إنعدام للمرض أو العجز.</string>
     <string name="weak_password">"كلمة المرور ضعيفة "</string>
+    <string name="arabic_key">العربية</string>
+    <string name="english_key">English</string>
+    <string name="language">اللغة</string>
 </resources>

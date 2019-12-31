@@ -14,6 +14,7 @@ public class SharedPreferencesManger {
     public static final String USER_PASSWORD = "USER_PASSWORD";
     public static final String REMEMBER = "REMEMBER";
     public static final String USER_LANG = "USER_LANG";
+    public static final String LANG_NUM = "LANG_NUM";
 
     public static void setSharedPreferences(Activity activity) {
         if (sharedPreferences == null) {
@@ -85,10 +86,10 @@ public class SharedPreferencesManger {
         }
     }
 
-    public static String onLoadLang(Activity activity, String data_Key) {
+    public static String onLoadLang(Activity activity) {
         setSharedPreferences (activity);
 
-        return sharedPreferences.getString (data_Key, "en");
+        return sharedPreferences.getString (USER_LANG, "ar");
     }
 
 

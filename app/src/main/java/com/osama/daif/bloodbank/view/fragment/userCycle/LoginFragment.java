@@ -31,6 +31,8 @@ import retrofit2.Response;
 import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.LoadBoolean;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.LoadData;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.SaveData;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.USER_PASSWORD;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
@@ -126,7 +128,8 @@ public class LoginFragment extends BaseFragment {
                     if (response.body().getStatus() == 1) {
                         startActivity(new Intent(baseActivity.getApplicationContext(), HomeCycleActivity.class));
                         getActivity().finish();
-                        SharedPreferencesManger.SaveData(getActivity(), getResources().getString(R.string.USER_DATA_SHARED), response.body().getData());
+                        SaveData (getActivity(), USER_PASSWORD, password);
+                        SaveData(getActivity(), getResources().getString(R.string.USER_DATA_SHARED), response.body().getData());
                         if (ckb_remember_me.isChecked()) {
                             SharedPreferencesManger.SaveData(getActivity(), getResources().getString(R.string.remember_me_instance), true);
                         }

@@ -11,6 +11,7 @@ import com.osama.daif.bloodbank.data.model.notificationSetting.NotificationSetti
 import com.osama.daif.bloodbank.data.model.posts.Posts;
 import com.osama.daif.bloodbank.data.model.posts.PostsData;
 import com.osama.daif.bloodbank.data.model.register.Register;
+import com.osama.daif.bloodbank.data.model.resetpassword.ResetPassword;
 import com.osama.daif.bloodbank.data.model.settings.Settings;
 
 import java.util.List;
@@ -165,4 +166,15 @@ public interface ApiService {
     Call<ContactUs> setContactUsMessage(@Field("api_token") String apiToken,
                                         @Field("title") String title,
                                         @Field("message") String message);
+
+    @POST("reset-password")
+    @FormUrlEncoded
+    Call<ResetPassword> forgetPassword(@Field("phone") String phone);
+
+    @POST("new-password")
+    @FormUrlEncoded
+    Call<GeneralResponse> newPassword(@Field("pin_code") String pin_code,
+                                      @Field("password") String password,
+                                      @Field("password_confirmation") String password_confirmation,
+                                      @Field("phone") String phone);
 }

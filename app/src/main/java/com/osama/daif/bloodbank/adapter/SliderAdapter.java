@@ -32,9 +32,9 @@ public class SliderAdapter extends PagerAdapter {
         slideImage.add(R.drawable.slide2);
         slideImage.add(R.drawable.slide3);
 
-        slidDescs.add(context.getString(R.string.test1));
-        slidDescs.add(context.getString(R.string.test2));
-        slidDescs.add(context.getString(R.string.test3));
+        slidDescs.add(context.getString(R.string.slider1));
+        slidDescs.add(context.getString(R.string.slider2));
+        slidDescs.add(context.getString(R.string.slider3));
     }
 
     @Override

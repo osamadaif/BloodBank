@@ -58,6 +58,29 @@ public class GeneralRequest {
         });
     }
 
+    public static void getData(Call<GeneralResponse> call, SpinnerAdapter2 adapter, String hint, Spinner spinner, AdapterView.OnItemSelectedListener listener, int selection) {
+        call.enqueue(new Callback<GeneralResponse>() {
+            @Override
+            public void onResponse(Call<GeneralResponse> call, Response<GeneralResponse> response) {
+                try {
+                    if (response.body().getStatus() == 1) {
+                        adapter.setData(response.body().getData(), hint);
+                        spinner.setAdapter(adapter);
+                        spinner.setOnItemSelectedListener(listener);
+                        spinner.setSelection(selection);
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GeneralResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     public static void getData(Call<GeneralResponse> call, SpinnerAdapter2 adapter, String hint, Spinner spinner, int selection) {
         call.enqueue(new Callback<GeneralResponse>() {
             @Override

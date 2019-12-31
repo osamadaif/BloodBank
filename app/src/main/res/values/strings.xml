@@ -14,6 +14,13 @@
     <string name="posts">Posts</string>
     <string name="Press_back_again">Press back again to exit</string>
     <string name="Select_address">Select address</string>
+    <string name="enter_phone_number">enter phone number</string>
+    <string name="invalid_phone">phone number must be 11 number</string>
+    <string name="enter_pin_code">enter pin code</string>
+    <string name="enter_password">enter password</string>
+    <string name="weak_password">password is weak</string>
+    <string name="enter_password_confirm">enter password confirmation</string>
+    <string name="password_and_confirm_not_match">password and confirm password not match</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
@@ -28,9 +35,9 @@
     <string name="city">city</string>
     <string name="confirm_password">confirm password</string>
     <string name="register">register</string>
-    <string name="test1" translatable="false">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 1</string>
-    <string name="test2" translatable="false">دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 2</string>
-    <string name="test3" translatable="false"> دة تيست عشان اشوف الشكل فى الاخر هيطلع عامل ازاى و هيكون شكله ايه اى هرى اى هرى 3</string>
+    <string name="slider1">Health is the level of functional and metabolic efficiency of the organism, but for humans,</string>
+    <string name="slider2">health is for individuals and societies according to the definition of the World Health Organization in a declaration of the principles of primary health care in 1978.</string>
+    <string name="slider3">It is a state of complete physical, mental and social integrity and not merely the absence or absence of disease or disability.</string>
     <string name="send">send</string>
     <string name="code">code</string>
     <string name="new_password">new password</string>

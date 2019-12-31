@@ -20,8 +20,8 @@
         android:gravity="center"
         android:layout_below="@id/slide_img_1"
         android:padding="@dimen/dim_16dp"
-        android:text="@string/test1"
+        android:text="@string/slider1"
         android:textColor="@color/brown"
-        android:textSize="24sp" />
+        android:textSize="@dimen/dim_20sp" />
 
 </RelativeLayout>

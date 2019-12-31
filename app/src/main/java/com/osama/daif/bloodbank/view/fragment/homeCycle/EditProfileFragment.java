@@ -22,6 +22,7 @@ import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.adapter.SpinnerAdapter2;
 import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.data.model.DateTxt;
+import com.osama.daif.bloodbank.data.model.login.LoginData;
 import com.osama.daif.bloodbank.data.model.register.Register;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
@@ -37,6 +38,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.LoadData;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.SaveData;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.USER_PASSWORD;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.showCalender;
@@ -76,10 +80,12 @@ public class EditProfileFragment extends BaseFragment {
     private DatePickerDialog datePickerDialog;
 
     private String apiToken;
+    private LoginData clientData;
 
     private int year;
     private int month;
     private int day;
+    private int bloodTypesSelectedId = 0, governmentSelectedId = 0, citiesSelectedId = 0;
 
     private HomeCycleActivity homeCycleActivity;
 
@@ -107,42 +113,10 @@ public class EditProfileFragment extends BaseFragment {
         homeCycleActivity.bottomNavigationVisibility (View.VISIBLE);
         homeCycleActivity.setBehavior (new AppBarLayout.ScrollingViewBehavior ( ));
         homeCycleActivity.editToolbarTxtSup (R.string.edit_profile);
-
+        clientData = loadUserData(getActivity());
         apiToken = loadUserData (getActivity ( )).getApiToken ( );
-
-        if (bloodTypeAdapter == null) {
-            editProfileFragmentProgressBar.setVisibility (View.VISIBLE);
-            bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
-            getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), spBloodType);
-        } else {
-            spBloodType.setAdapter (bloodTypeAdapter);
-        }
-
-        if (governoratesAdapter == null) {
-            governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
-        } else {
-            spGovernment.setAdapter (governoratesAdapter);
-        }
-
-        governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
-        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener ( ) {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position != 0) {
-
-                    cityAdapter = new SpinnerAdapter2 (getActivity ( ));
-                    getData (getClient ( ).getCities (governoratesAdapter.selectedId), cityAdapter, getResources ( ).getString (R.string.city), spCity);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        };
-        getData (getClient ( ).getGovernorates ( ), governoratesAdapter, getResources ( ).getString (R.string.governorate), spGovernment, listener);
         getProfileData ( );
-
+        setSpinner ();
         return view;
     }
 
@@ -207,6 +181,7 @@ public class EditProfileFragment extends BaseFragment {
                     Toast.makeText (baseActivity, e.getMessage ( ), Toast.LENGTH_SHORT).show ( );
                 }
                 if (response.body ( ).getStatus ( ) == 1) {
+                    SaveData (getActivity(), USER_PASSWORD, password);
                     SharedPreferencesManger.SaveData (getActivity ( ), getResources ( ).getString (R.string.USER_DATA_SHARED), response.body ( ).getData ( ));
                 }
             }
@@ -219,74 +194,54 @@ public class EditProfileFragment extends BaseFragment {
     }
 
     private void getProfileData() {
-//        editProfileFragmentTxtUserName.setText(loadUserData(getActivity()).getClient ().getName ());
-//        editProfileFragmentTxtEmail.setText(loadUserData(getActivity()).getClient ().getEmail ());
-//        editProfileFragmentBirthday.setText(loadUserData(getActivity()).getClient ().getBirthDate ());
-//        editProfileFragmentLastDonationD.setText(loadUserData(getActivity()).getClient ().getDonationLastDate ());
-//        editProfileFragmentTxtPhoneNumber.setText(loadUserData(getActivity()).getClient ().getPhone ());
-//        spBloodType.setSelection(loadUserData(getActivity()).getClient ().getBloodType ().getId ());
-//        spGovernment.setSelection(loadUserData(getActivity()).getClient ().getCity ().getGovernorate ().getId ());
-//        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                int citySelected = loadUserData(getActivity()).getClient ().getCity ().getId ();
-//                cityAdapter = new SpinnerAdapter2(getActivity());
-//                getData(getClient().getCities(loadUserData(getActivity()).getClient ().getCity ().getGovernorate ().getId ()), cityAdapter, getResources().getString(R.string.city), spCity, citySelected);
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        };
-//        spGovernment.setOnItemSelectedListener(listener);
+        bloodTypesSelectedId = clientData.getClient().getBloodType().getId();
+        governmentSelectedId = clientData.getClient().getCity().getGovernorate().getId();
+        citiesSelectedId = clientData.getClient().getCity().getId();
 
-        getClient ( ).getProfile (apiToken).enqueue (new Callback<Register> ( ) {
+        editProfileFragmentTxtUserName.setText(clientData.getClient ().getName ());
+        editProfileFragmentTxtEmail.setText(clientData.getClient ().getEmail ());
+        editProfileFragmentBirthday.setText(clientData.getClient ().getBirthDate ());
+        editProfileFragmentLastDonationD.setText(clientData.getClient ().getDonationLastDate ());
+        editProfileFragmentTxtPhoneNumber.setText(clientData.getClient ().getPhone ());
+
+        editProfileFragmentTxtPassword.setText(LoadData (getActivity(), USER_PASSWORD));
+        editProfileFragmentTxtConfirmPassword.setText(LoadData(getActivity(), USER_PASSWORD));
+    }
+
+    private void setSpinner() {
+        if (bloodTypeAdapter == null) {
+
+            bloodTypeAdapter = new SpinnerAdapter2 (getActivity ( ));
+            getData (getClient ( ).getBloodTypes ( ), bloodTypeAdapter, getResources ( ).getString (R.string.blood_type), spBloodType, bloodTypesSelectedId);
+
+        } else {
+            spBloodType.setAdapter (bloodTypeAdapter);
+        }
+
+        if (governoratesAdapter == null) {
+            editProfileFragmentProgressBar.setVisibility (View.VISIBLE);
+            governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
+            cityAdapter = new SpinnerAdapter2 (getActivity ( ));
+        } else {
+            spGovernment.setAdapter (governoratesAdapter);
+        }
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener ( ) {
             @Override
-            public void onResponse(Call<Register> call, Response<Register> response) {
-                try {
-                    if (response.body ( ).getStatus ( ) == 1) {
-                        editProfileFragmentProgressBar.setVisibility (View.GONE);
-                        editProfileFragmentTxtUserName.setText (response.body ( ).getData ( ).getClient ( ).getName ( ));
-                        editProfileFragmentTxtEmail.setText (response.body ( ).getData ( ).getClient ( ).getEmail ( ));
-                        editProfileFragmentBirthday.setText (response.body ( ).getData ( ).getClient ( ).getBirthDate ( ));
-                        editProfileFragmentLastDonationD.setText (response.body ( ).getData ( ).getClient ( ).getDonationLastDate ( ));
-                        editProfileFragmentTxtPhoneNumber.setText (response.body ( ).getData ( ).getClient ( ).getPhone ( ));
-                        if (spBloodType.getSelectedItemPosition ( ) == 0 || spBloodType != null) {
-                            spBloodType.setSelection (response.body ( ).getData ( ).getClient ( ).getBloodType ( ).getId ( ));
-                        }
-                        if (spGovernment.getSelectedItemPosition ( ) == 0) {
-                            spGovernment.setSelection (response.body ( ).getData ( ).getClient ( ).getCity ( ).getGovernorate ( ).getId ( ));
-                        }
-                        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener ( ) {
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                int citySelected = response.body ( ).getData ( ).getClient ( ).getCity ( ).getId ( );
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    getData (getClient ( ).getCities (governoratesAdapter.selectedId), cityAdapter, getResources ( ).getString (R.string.city), spCity, citiesSelectedId);
 
-                                if (citySelected != 0 || cityAdapter == null) {
-                                    cityAdapter = new SpinnerAdapter2 (getActivity ( ));
-                                    getData (getClient ( ).getCities (response.body ( ).getData ( ).getClient ( ).getCity ( ).getGovernorate ( ).getId ( )), cityAdapter, getResources ( ).getString (R.string.city), spCity, citySelected);
-                                }
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-                            }
-                        };
-                        spGovernment.setOnItemSelectedListener (listener);
-                    }
-                } catch (Exception e) {
-
-                    editProfileFragmentProgressBar.setVisibility (View.GONE);
                 }
+                editProfileFragmentProgressBar.setVisibility (View.GONE);
             }
 
             @Override
-            public void onFailure(Call<Register> call, Throwable t) {
-                editProfileFragmentProgressBar.setVisibility (View.GONE);
-                showNoConnectionDialog ();
-//                Toast.makeText (getActivity ( ), t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
-            }
-        });
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        };
+        getData (getClient ( ).getGovernorates ( ), governoratesAdapter, getResources ( ).getString (R.string.governorate), spGovernment, listener,governmentSelectedId);
     }
 
     private void showNoConnectionDialog() {

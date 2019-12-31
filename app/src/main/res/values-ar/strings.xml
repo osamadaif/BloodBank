@@ -83,4 +83,14 @@
     <string name="user_name">الاسم</string>
     <string name="filter">التصنيفات</string>
     <string name="blood_type_test">B+</string>
+    <string name="enter_password">ادخل كلمة السر</string>
+    <string name="enter_password_confirm">ادخل تأكيد كلمة السر</string>
+    <string name="enter_phone_number">ادخل رقم التليفون</string>
+    <string name="enter_pin_code">ادخل الكود</string>
+    <string name="invalid_phone">رقم التليفون يجب ان يكون مكون من 11 رقم</string>
+    <string name="password_and_confirm_not_match">كلمة السر و تأكيد كلمة السر غير متطابقين</string>
+    <string name="slider1">الصحة هي مستوى الكفاءة الوظيفية والأيضية للكائن الحي،</string>
+    <string name="slider2">"أما عند الإنسان فالصحة لدى الأفراد والمجتمعات وفقا لتعريف منظمة الصحة العالمية في إعلان لمبادئ الرعاية الصحية الأولية عام 1978. "</string>
+    <string name="slider3">هي حالة من اكتمال السلامة البدنية والعقلية والإجتماعية وليس مجرد غياب أو إنعدام للمرض أو العجز.</string>
+    <string name="weak_password">"كلمة المرور ضعيفة "</string>
 </resources>

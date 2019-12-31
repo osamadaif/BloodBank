@@ -39,6 +39,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.osama.daif.bloodbank.data.api.RetrofitClient.getClient;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.SaveData;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.USER_PASSWORD;
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 import static com.osama.daif.bloodbank.helper.HelperMethods.showCalender;
@@ -193,7 +195,8 @@ public class RegisterAsUserFragment extends BaseFragment {
                     Toast.makeText(baseActivity, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 if (response.body().getStatus() == 1) {
-                    SharedPreferencesManger.SaveData(getActivity(),getResources().getString(R.string.USER_DATA_SHARED),response.body().getData());
+                    SaveData (getActivity(), USER_PASSWORD, password);
+                    SaveData(getActivity(),getResources().getString(R.string.USER_DATA_SHARED),response.body().getData());
                 }
             }
 

@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 
 import android.os.Bundle;
@@ -49,7 +51,7 @@ import java.util.Locale;
 public class HelperMethods {
     private static ProgressDialog checkDialog;
     public static AlertDialog alertDialog;
-
+    static ConnectivityManager cm;
     public static void replaceFragment(FragmentManager getChildFragmentManager, int id, Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager.beginTransaction ( );
         transaction.replace (id, fragment);
@@ -312,4 +314,17 @@ public class HelperMethods {
         v.startAnimation (a);
     }
 
+
+
+    static public boolean isConnected(Context context) {
+        try {
+            cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        } catch (NullPointerException e) {
+
+        }
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
 }

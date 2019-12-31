@@ -22,7 +22,7 @@
     <string name="change">تغيير</string>
     <string name="choose_location">اختيار الموقع</string>
     <string name="city">المدينة</string>
-    <string name="city_donation_key">المدينة:</string>
+    <string name="city_donation_key">المدينة: </string>
     <string name="code">كود التحقق</string>
     <string name="confirm_new_password">تأكيد كلمة المرور الجديدة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
@@ -45,12 +45,12 @@
     <string name="governorate">المحافظة</string>
     <string name="home">الصفحة الرئيسية</string>
     <string name="hospital_address">عنوان المستشفى</string>
-    <string name="hospital_donation_key">مستشفى:</string>
+    <string name="hospital_donation_key">مستشفى: </string>
     <string name="last_donation">اخر تاريخ تبرع</string>
     <string name="logout">تسجيل خروج</string>
     <string name="message">نص الرسالة</string>
     <string name="more">المزيد</string>
-    <string name="name_donation_key">الاسم:</string>
+    <string name="name_donation_key"> الاسم:</string>
     <string name="name_of_city_value">اسم المدينة</string>
     <string name="name_of_hospital_value">اسم المستشفى</string>
     <string name="new_password">كلمة المرور الجديدة</string>

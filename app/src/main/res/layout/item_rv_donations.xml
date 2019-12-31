@@ -5,12 +5,9 @@
     android:id="@+id/SwipeRevealLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dim_8dp"
     android:layout_marginTop="@dimen/dim_8dp"
-    android:layout_marginEnd="@dimen/dim_8dp"
     android:layout_marginBottom="0dp"
-    android:layoutDirection="locale"
-    app:dragEdge="right"
+    app:dragEdge="left"
     app:mode="same_level">
 
 
@@ -42,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/dim_8dp"
-        android:paddingEnd="0dp"
-        android:layoutDirection="locale">
+        android:paddingEnd="@dimen/dim_8dp">
 
 
 <!--        android:layoutDirection="ltr"-->
@@ -97,7 +93,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="locale"
                 android:orientation="horizontal">
 
 
@@ -105,7 +100,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_horizontal"
-                    android:layoutDirection="locale"
                     android:padding="@dimen/dim_8dp">
 
                     <TextView
@@ -142,7 +136,7 @@
                         android:layout_marginStart="@dimen/dim_104dp"
                         android:layout_marginEnd="@dimen/dim_4dp"
                         android:textAlignment="viewStart"
-                        android:textDirection="locale"
+                        android:textDirection="anyRtl"
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:text="@string/hospital_donation_key"
                         android:textColor="@color/black"
@@ -156,7 +150,7 @@
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:layout_toEndOf="@id/item_rv_donation_blood_type_txt_hospital_key"
                         android:textAlignment="viewStart"
-                        android:textDirection="locale"
+                        android:textDirection="anyRtl"
                         android:text="@string/name_of_hospital_value"
                         android:textColor="@color/black"
 
@@ -171,7 +165,7 @@
                         android:layout_marginStart="@dimen/dim_104dp"
                         android:layout_marginBottom="@dimen/dim_4dp"
                         android:textAlignment="viewStart"
-                        android:textDirection="locale"
+                        android:textDirection="anyRtl"
                         android:text="@string/city_donation_key"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_18sp" />
@@ -183,7 +177,7 @@
                         android:layout_below="@id/item_rv_donation_blood_type_txt_hospital_value"
                         android:layout_toEndOf="@id/item_rv_donation_blood_type_txt_city_key"
                         android:textAlignment="viewStart"
-                        android:textDirection="locale"
+                        android:textDirection="anyRtl"
                         android:text="@string/name_of_hospital_value"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dim_18sp" />

@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
+import com.osama.daif.bloodbank.helper.HelperMethods;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
+import com.osama.daif.bloodbank.view.activity.UserCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
+import com.osama.daif.bloodbank.view.fragment.userCycle.LoginFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -44,14 +47,13 @@ public class SplashFragment extends BaseFragment {
                         startActivity (new Intent (baseActivity.getApplicationContext ( ), HomeCycleActivity.class));
                         getActivity().finish();
                     }else {
-                        replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.fragment_splash_container, new SliderFragment ( ));
+                        startActivity (new Intent (baseActivity.getApplicationContext ( ), UserCycleActivity.class));
+                        getActivity().finish();
 
                     }
                 } else {
                     replaceFragment (getActivity ( ).getSupportFragmentManager ( ), R.id.fragment_splash_container, new SliderFragment ( ));
                 }
-
-
             }
         }, 2000);
 

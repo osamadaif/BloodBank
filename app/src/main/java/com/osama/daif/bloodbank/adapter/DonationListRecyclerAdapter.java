@@ -30,6 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.Manifest.permission.CALL_PHONE;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.LANG_NUM;
+import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.LoadData;
 import static com.osama.daif.bloodbank.helper.HelperMethods.replaceFragment;
 
 public class DonationListRecyclerAdapter extends RecyclerView.Adapter<DonationListRecyclerAdapter.DonationListVH> {
@@ -62,6 +64,15 @@ public class DonationListRecyclerAdapter extends RecyclerView.Adapter<DonationLi
         setData (holder, position);
         setAction (holder, position);
         viewBinderHelper.bind (holder.SwipeRevealLayout, item.getId ( ).toString ( ));
+        if (LoadData(activity,LANG_NUM) != null){
+            if (Integer.parseInt(LoadData(activity,LANG_NUM)) == 0){
+                holder.SwipeRevealLayout.setDragEdge (0x1);
+            }else if (Integer.parseInt(LoadData(activity,LANG_NUM)) == 1){
+                holder.SwipeRevealLayout.setDragEdge (0x1 << 1);
+            }
+        }
+
+
     }
 
     private void setData(DonationListVH holder, int position) {

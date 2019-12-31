@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import com.osama.daif.bloodbank.R;
 import com.osama.daif.bloodbank.data.local.SharedPreferencesManger;
 import com.osama.daif.bloodbank.data.model.login.Login;
+import com.osama.daif.bloodbank.helper.HelperMethods;
 import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 
@@ -135,7 +136,8 @@ public class LoginFragment extends BaseFragment {
                         }
                     } else {
 
-                        Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(baseActivity, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                        HelperMethods.showSnackBar (getActivity ( ).findViewById (android.R.id.content),response.body().getMsg());
                     }
 
 
@@ -147,7 +149,8 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 try {
-                    Toast.makeText(baseActivity, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(baseActivity, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    HelperMethods.showSnackBar (getActivity ( ).findViewById (android.R.id.content),t.getMessage());
 
                 } catch (Exception e) {
 

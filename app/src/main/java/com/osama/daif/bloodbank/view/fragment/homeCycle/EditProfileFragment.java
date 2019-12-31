@@ -28,6 +28,8 @@ import com.osama.daif.bloodbank.view.activity.HomeCycleActivity;
 import com.osama.daif.bloodbank.view.fragment.BaseFragment;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +45,7 @@ import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.SaveDa
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.USER_PASSWORD;
 import static com.osama.daif.bloodbank.data.local.SharedPreferencesManger.loadUserData;
 import static com.osama.daif.bloodbank.helper.GeneralRequest.getData;
+import static com.osama.daif.bloodbank.helper.HelperMethods.isConnected;
 import static com.osama.daif.bloodbank.helper.HelperMethods.showCalender;
 
 public class EditProfileFragment extends BaseFragment {
@@ -154,6 +157,7 @@ public class EditProfileFragment extends BaseFragment {
     }
 
     private void setEditProfileData() {
+        editProfileFragmentProgressBar.setVisibility (View.VISIBLE);
         String userName = editProfileFragmentTxtUserName.getText ( ).toString ( ).trim ( );
         if (userName.trim ( ).equals ("") || editProfileFragmentTxtUserName.getText ( ) == null || editProfileFragmentTxtUserName.getText ( ).length ( ) == 0) {
             //   txt_phone_number.setError (getResources ( ).getString (R.string.Please_insert_number));
@@ -181,6 +185,7 @@ public class EditProfileFragment extends BaseFragment {
                     Toast.makeText (baseActivity, e.getMessage ( ), Toast.LENGTH_SHORT).show ( );
                 }
                 if (response.body ( ).getStatus ( ) == 1) {
+                    editProfileFragmentProgressBar.setVisibility (View.GONE);
                     SaveData (getActivity(), USER_PASSWORD, password);
                     SharedPreferencesManger.SaveData (getActivity ( ), getResources ( ).getString (R.string.USER_DATA_SHARED), response.body ( ).getData ( ));
                 }
@@ -188,7 +193,9 @@ public class EditProfileFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
+                editProfileFragmentProgressBar.setVisibility (View.GONE);
                 Toast.makeText (baseActivity, t.getMessage ( ), Toast.LENGTH_SHORT).show ( );
+                showNoConnectionDialog ();
             }
         });
     }
@@ -220,6 +227,11 @@ public class EditProfileFragment extends BaseFragment {
 
         if (governoratesAdapter == null) {
             editProfileFragmentProgressBar.setVisibility (View.VISIBLE);
+            if (!isConnected(getActivity ())) {
+                editProfileFragmentProgressBar.setVisibility (View.GONE);
+                showNoConnectionDialog ();
+                return;
+            }
             governoratesAdapter = new SpinnerAdapter2 (getActivity ( ));
             cityAdapter = new SpinnerAdapter2 (getActivity ( ));
         } else {
@@ -242,6 +254,7 @@ public class EditProfileFragment extends BaseFragment {
             }
         };
         getData (getClient ( ).getGovernorates ( ), governoratesAdapter, getResources ( ).getString (R.string.governorate), spGovernment, listener,governmentSelectedId);
+
     }
 
     private void showNoConnectionDialog() {
